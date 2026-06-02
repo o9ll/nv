@@ -1,8 +1,8 @@
 :root {
-    --vc-kamidere-accent: #f4bd6a;
-    --vc-kamidere-accent-soft: rgb(244 189 106 / 16%);
-    --vc-kamidere-border: rgb(255 240 220 / 14%);
-    --vc-kamidere-surface: linear-gradient(135deg, rgb(18 8 11 / 92%), rgb(70 18 28 / 86%));
+    --vc-nv-accent: #f4bd6a;
+    --vc-nv-accent-soft: rgb(244 189 106 / 16%);
+    --vc-nv-border: rgb(255 240 220 / 14%);
+    --vc-nv-surface: linear-gradient(135deg, rgb(18 8 11 / 92%), rgb(70 18 28 / 86%));
 }
 
 .vc-vencord-tab-hero-metrics {
@@ -18,7 +18,7 @@
     min-height: 34px;
     padding: 0 14px;
     border-radius: 999px;
-    border: 1px solid var(--vc-kamidere-border);
+    border: 1px solid var(--vc-nv-border);
     background: rgb(255 248 235 / 10%);
     color: #fff4e3;
     font-size: 0.9rem;

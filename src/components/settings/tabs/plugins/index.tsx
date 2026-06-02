@@ -112,7 +112,7 @@ const enum SearchStatus {
     ALL,
     ENABLED,
     DISABLED,
-    KAMIDERE,
+    NV,
     EQUICORD,
     VENCORD,
     NEW,
@@ -237,8 +237,8 @@ export default function PluginSettings() {
             case SearchStatus.ENABLED:
                 if (!enabled) return false;
                 break;
-            case SearchStatus.KAMIDERE:
-                if (sourceId !== "kamidere") return false;
+            case SearchStatus.NV:
+                if (sourceId !== "nv") return false;
                 break;
             case SearchStatus.EQUICORD:
                 if (sourceId !== "equicord") return false;
@@ -440,7 +440,7 @@ export default function PluginSettings() {
                                 { label: "Show All", value: SearchStatus.ALL, default: true },
                                 { label: "Show Enabled", value: SearchStatus.ENABLED },
                                 { label: "Show Disabled", value: SearchStatus.DISABLED },
-                                { label: `Show ${BRAND_NAME}`, value: SearchStatus.KAMIDERE },
+                                { label: `Show ${BRAND_NAME}`, value: SearchStatus.NV },
                                 { label: "Show Equicord", value: SearchStatus.EQUICORD },
                                 { label: "Show Vencord", value: SearchStatus.VENCORD },
                                 { label: "Show New", value: SearchStatus.NEW },

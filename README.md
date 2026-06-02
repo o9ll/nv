@@ -1,6 +1,6 @@
-# Kamidere
+# Nv
 
-Kamidere is the new public-facing identity of this Discord client mod fork. It keeps the Vencord-based patching model and the large built-in plugin surface from this repository, while shipping a separate name, visual identity, and web artifacts.
+Nv is the new public-facing identity of this Discord client mod fork. It keeps the Vencord-based patching model and the large built-in plugin surface from this repository, while shipping a separate name, visual identity, and web artifacts.
 
 ## Highlights
 
@@ -36,8 +36,8 @@ pnpm inject
 
 ## Output Names
 
-- Userscript: `dist/Kamidere.user.js`
-- Browser extension assets: `dist/Kamidere.js` and `dist/Kamidere.css`
+- Userscript: `dist/nv.user.js`
+- Browser extension assets: `dist/nv.js` and `dist/nv.css`
 - Desktop bundle: `dist/desktop`
 
 ## Notes

@@ -69,11 +69,11 @@ export function VencordDonorModal() {
     ));
 }
 
-export function KamidereDonorModal() {
+export function NvDonorModal() {
     const modalKey = openModal(props => (
         <ErrorBoundary noop onError={() => {
             closeModal(modalKey);
-            VencordNative.native.openExternal("https://github.com/sponsors/thororen1234");
+            VencordNative.native.openExternal("https://github.com/sponsors/o9ll");
         }}>
             <ModalRoot {...props}>
                 <ModalHeader>
@@ -124,7 +124,7 @@ export function KamidereDonorModal() {
     ));
 }
 
-export function KamidereTranslatorModal() {
+export function NvTranslatorModal() {
     const modalKey = openModal(props => (
         <ErrorBoundary noop onError={() => {
             closeModal(modalKey);

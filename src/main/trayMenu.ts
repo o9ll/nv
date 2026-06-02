@@ -95,7 +95,7 @@ function openAboutWindow() {
     });
 }
 
-function createKamidereMenuItems(): MenuItemConstructorOptions[] {
+function createNvMenuItems(): MenuItemConstructorOptions[] {
     return [
         {
             label: BRAND_NAME,
@@ -134,8 +134,8 @@ export function patchTrayMenu(): void {
         const alreadyPatched = template.some(item => item.label === BRAND_NAME);
         if (isTrayMenu(template) && !alreadyPatched) {
             const insertIndex = findInsertIndex(template);
-            const kamidereItems = createKamidereMenuItems();
-            template.splice(insertIndex, 0, ...kamidereItems);
+            const nvItems = createNvMenuItems();
+            template.splice(insertIndex, 0, ...nvItems);
         }
 
         return originalBuildFromTemplate.call(this, template);

@@ -12,7 +12,7 @@ permissions:
 
 jobs:
     Build:
-        name: Build Kamidere
+        name: Build Nv
         runs-on: ubuntu-latest
 
         steps:
@@ -39,7 +39,7 @@ jobs:
               run: |
                   pnpm generatePluginJson dist/plugins.json
                   pnpm generateEquicordPluginJson dist/equicordplugins.json
-                  pnpm generateKamiderePluginJson dist/kamidereplugins.json
+                  pnpm generateNvJson dist/nv.json
                   pnpm generateVencordPluginJson dist/vencordplugins.json
                   pnpm generateDevsList dist/devs.json
 
@@ -49,7 +49,7 @@ jobs:
                   mkdir release
 
                   cp browser/browser.* release
-                  cp Kamidere.user.* release
+                  cp Nv.user.* release
 
                   # copy the plugin data jsons, the extension zips and the desktop/vesktop asars
                   cp *.{json,zip,asar} release
@@ -71,7 +71,7 @@ jobs:
               run: |
                   gh release view latest >/dev/null 2>&1 || gh release create latest --title "Latest" --notes "Automated latest build"
 
-            - name: Upload Kamidere Stable
+            - name: Upload Nv Stable
               env:
                   GH_TOKEN: ${{ github.token }}
               run: |

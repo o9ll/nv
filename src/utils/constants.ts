@@ -94,12 +94,12 @@ export const Devs = /* #__PURE__*/ Object.freeze({
         name: "Megumin",
         id: 545581357812678656n
     },
-    clrxxo: {
-        name: "clrxxo",
+    o9: {
+        name: "o9",
         id: 0n,
         badge: false,
-        github: "clrxxo",
-        avatarUrl: "https://avatars.githubusercontent.com/u/243032432?v=4",
+        github: "o9ll",
+        avatarUrl: "https://avatars.githubusercontent.com/u/229858305?v=4",
     },
     botato: {
         name: "botato",

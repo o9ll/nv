@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name            Kamidere
+// @name            Nv
 // @description     A Discord client mod - Web version
 // @version         %version%
-// @author          Kamidere contributors
-// @namespace       kamidere
+// @author          Nv contributors
+// @namespace       nv
 // @license         GPL-3.0
 // @match           *://*.discord.com/*
 // @grant           GM_xmlhttpRequest
@@ -21,4 +21,4 @@
 // to overwrite stuff on the window on sites that use CSP. Use Tampermonkey or use a chromium based browser
 // https://github.com/violentmonkey/violentmonkey/issues/997
 
-// this is a compiled and minified version of Kamidere. For the source code, open the active repository for this workspace
+// this is a compiled and minified version of Nv. For the source code, open the active repository for this workspace

@@ -31,10 +31,10 @@ import { ContextMenuApi, Menu, Toasts, UserStore } from "@webpack/common";
 
 import Plugins, { PluginMeta } from "~plugins";
 
-import { KamidereDonorModal, KamidereTranslatorModal, VencordDonorModal } from "./modals";
+import { NvDonorModal, NvTranslatorModal, VencordDonorModal } from "./modals";
 
 const CONTRIBUTOR_BADGE = "https://cdn.discordapp.com/emojis/1092089799109775453.png?size=64";
-const KAMIDERE_CONTRIBUTOR_BADGE = BRAND_ICON_DATA_URL;
+const NV_CONTRIBUTOR_BADGE = BRAND_ICON_DATA_URL;
 const USERPLUGIN_CONTRIBUTOR_BADGE = `data:image/svg+xml;utf8,${encodeURIComponent([
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">',
     '<rect width="64" height="64" rx="18" fill="#28492a"/>',
@@ -53,7 +53,7 @@ const ContributorBadge: ProfileBadge = {
 
 const EquicordContributorBadge: ProfileBadge = {
     description: `${BRAND_NAME} Contributor`,
-    iconSrc: KAMIDERE_CONTRIBUTOR_BADGE,
+    iconSrc: NV_CONTRIBUTOR_BADGE,
     position: BadgePosition.START,
     shouldShow: ({ userId }) => shouldShowEquicordContributorBadge(userId),
     onClick: (_, { userId }) => openContributorModal(UserStore.getUser(userId)),
@@ -260,7 +260,7 @@ export default definePlugin({
                 ContextMenuApi.openContextMenu(event, () => <BadgeContextMenu badge={badge} />);
             },
             onClick() {
-                return /translator$/i.test(badge.tooltip) ? KamidereTranslatorModal() : KamidereDonorModal();
+                return /translator$/i.test(badge.tooltip) ? NvTranslatorModal() : NvDonorModal();
             },
         } satisfies ProfileBadge));
     }

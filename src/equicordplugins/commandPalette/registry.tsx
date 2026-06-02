@@ -1281,7 +1281,7 @@ const BUILT_IN_COMMANDS: CommandEntry[] = [
     {
         id: "open-equicord-settings",
         label: `Open ${BRAND_NAME} Settings`,
-        keywords: ["settings", "equicord", "kamidere"],
+        keywords: ["settings", "equicord", "nv"],
         categoryId: DEFAULT_CATEGORY_ID,
         tags: [TAG_NAVIGATION, TAG_CORE],
         handler: () => SettingsRouter.openUserSettings("equicord_main_panel")

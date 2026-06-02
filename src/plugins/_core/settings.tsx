@@ -88,7 +88,7 @@ interface SettingsLayoutBuilder {
 }
 
 const SECTION_KEY_PREFIX = "equicord_section";
-const CUSTOM_ENTRY_DIVIDER_CLASS = "vc-kamidere-settings-plugin-divider";
+const CUSTOM_ENTRY_DIVIDER_CLASS = "vc-nv-settings-plugin-divider";
 const DEFAULT_SETTINGS_LOCATION: SettingsLocation = "aboveNitro";
 const SETTINGS_LOCATIONS = new Set<SettingsLocation>([
     "top",
@@ -132,25 +132,25 @@ const settings = definePluginSettings({
         type: OptionType.SELECT,
         description: `Where to put the ${BRAND_NAME} settings section`,
         options: [
-            { label: "At the very top", value: "top" },
-            { label: "Above the Nitro section", value: "aboveNitro", default: true },
-            { label: "Below the Nitro section", value: "belowNitro" },
-            { label: "Above Activity Settings", value: "aboveActivity" },
-            { label: "Below Activity Settings", value: "belowActivity" },
-            { label: "At the very bottom", value: "bottom" },
+            { label: "Top", value: "top" },
+            { label: "Above Nitro", value: "aboveNitro", default: true },
+            { label: "Below Nitro", value: "belowNitro" },
+            { label: "Above Activity", value: "aboveActivity" },
+            { label: "Below Activity", value: "belowActivity" },
+            { label: "Bottom", value: "bottom" },
         ] as { label: string; value: SettingsLocation; default?: boolean; }[]
     }
 });
 
 const settingsSectionMap: [string, string][] = [
-    ["KamidereSettings", "equicord_main_panel"],
-    ["KamiderePlugins", "equicord_plugins_panel"],
-    ["KamidereThemes", "equicord_themes_panel"],
-    ["KamidereUpdater", "equicord_updater_panel"],
-    ["KamidereChangelog", "equicord_changelog_panel"],
-    ["KamidereCloud", "equicord_cloud_panel"],
-    ["KamidereBackupAndRestore", "equicord_backup_restore_panel"],
-    ["KamiderePatchHelper", "equicord_patch_helper_panel"],
+    ["NvSettings", "equicord_main_panel"],
+    ["NvPlugins", "equicord_plugins_panel"],
+    ["NvThemes", "equicord_themes_panel"],
+    ["NvUpdater", "equicord_updater_panel"],
+    ["NvChangelog", "equicord_changelog_panel"],
+    ["NvCloud", "equicord_cloud_panel"],
+    ["NvBackupAndRestore", "equicord_backup_restore_panel"],
+    ["NvPatchHelper", "equicord_patch_helper_panel"],
     ["EquibopSettings", "equicord_equibop_settings_panel"],
 ];
 

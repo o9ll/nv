@@ -4,7 +4,7 @@ import type { DispatchWithoutAction } from "react";
 
 import type { PresenceLabConfig, PresenceLabData, PresenceLabOperator, PresenceLabSession, PresenceLabTarget } from "./types";
 
-const STORAGE_PREFIX = "kamidere-presence-lab:";
+const STORAGE_PREFIX = "nv-presence-lab:";
 const signals = new Set<DispatchWithoutAction>();
 const cache = new Map<string, PresenceLabData>();
 

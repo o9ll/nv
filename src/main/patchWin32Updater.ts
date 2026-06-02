@@ -49,7 +49,7 @@ function patchLatest() {
 
         if (!existsSync(app) || statSync(app).isDirectory()) return;
 
-        console.info("[Kamidere] Detected host update. Repatching...");
+        console.info("[Nv] Detected host update. Repatching...");
 
         renameSync(app, _app);
         mkdirSync(app);
@@ -59,7 +59,7 @@ function patchLatest() {
         }));
         writeFileSync(join(app, "index.js"), `require(${JSON.stringify(join(__dirname, "patcher.js"))});`);
     } catch (err) {
-        console.error("[Kamidere] Failed to repatch latest host update", err);
+        console.error("[Nv] Failed to repatch latest host update", err);
     }
 }
 

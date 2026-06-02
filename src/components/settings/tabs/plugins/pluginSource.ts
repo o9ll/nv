@@ -6,7 +6,7 @@
 
 import { BRAND_ICON_DATA_URL, BRAND_NAME } from "@shared/branding";
 
-export type PluginSourceId = "kamidere" | "equicord" | "vencord" | "user" | "unknown";
+export type PluginSourceId = "nv" | "equicord" | "vencord" | "user" | "unknown";
 
 interface PluginSourceInfo {
     id: PluginSourceId;
@@ -37,7 +37,7 @@ const UNKNOWN_PLUGIN_ICON_DATA_URL = svgToDataUrl([
 ].join(""));
 
 const SOURCE_PATHS = {
-    kamidere: "src/kamidereplugins/",
+    nv: "src/nv/",
     equicord: "src/equicordplugins/",
     vencord: "src/plugins/",
 } as const;
@@ -45,7 +45,7 @@ const SOURCE_PATHS = {
 export function getPluginSourceId(folderName?: string, userPlugin = false): PluginSourceId {
     if (userPlugin) return "user";
     if (!folderName) return "unknown";
-    if (folderName.startsWith(SOURCE_PATHS.kamidere)) return "kamidere";
+    if (folderName.startsWith(SOURCE_PATHS.nv)) return "nv";
     if (folderName.startsWith(SOURCE_PATHS.equicord)) return "equicord";
     if (folderName.startsWith(SOURCE_PATHS.vencord)) return "vencord";
     return "unknown";
@@ -55,7 +55,7 @@ export function getPluginSourceInfo(folderName?: string, userPlugin = false, isM
     const sourceId = getPluginSourceId(folderName, userPlugin);
 
     switch (sourceId) {
-        case "kamidere":
+        case "nv":
             return {
                 id: sourceId,
                 displayName: BRAND_NAME,

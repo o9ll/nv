@@ -89,7 +89,7 @@ function CloudTab() {
             </Paragraph>
 
             <Notice.Info className={Margins.bottom16}>
-                This rebrand does not ship a Kamidere-specific cloud service. If you want private sync, use a self-hosted compatible endpoint in the field below.
+                This rebrand does not ship a Nv-specific cloud service. If you want private sync, use a self-hosted compatible endpoint in the field below.
                 The bundled default points to <Link href="https://api.vencord.dev/">Vencord Cloud</Link>.
             </Notice.Info>
 

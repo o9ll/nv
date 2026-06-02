@@ -1,10 +1,10 @@
 {
-    "name": "kamidere",
+    "name": "nv",
     "private": "true",
     "version": "1.14.3.1",
     "description": "A commanding Discord client mod with a large built-in plugin stack",
     "license": "GPL-3.0-or-later",
-    "author": "Kamidere contributors",
+    "author": "Nv contributors",
     "scripts": {
         "build": "node --require=./scripts/suppressExperimentalWarnings.js scripts/build/build.mjs",
         "buildStandalone": "pnpm build --standalone",
@@ -17,7 +17,7 @@
         "watchWeb": "pnpm buildWeb --watch",
         "generateDevsList": "tsx scripts/generateDevsList.ts",
         "generatePluginJson": "tsx scripts/generatePluginList.ts",
-        "generateKamiderePluginJson": "tsx scripts/generatePluginList.ts --kamidere",
+        "generateNvJson": "tsx scripts/generatePluginList.ts --nv",
         "generateEquicordPluginJson": "tsx scripts/generatePluginList.ts --equicord",
         "generateVencordPluginJson": "tsx scripts/generatePluginList.ts --vencord",
         "generateTypes": "tspc --emitDeclarationOnly --declaration --outDir packages/vencord-types --allowJs false",

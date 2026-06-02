@@ -28,17 +28,17 @@ const LEGACY_DATA_DIR = process.env.EQUICORD_USER_DATA_DIR ?? (
         : join(app.getPath("userData"), "..", "Equicord", suffix)
 );
 
-export const DATA_DIR = process.env.KAMIDERE_USER_DATA_DIR ?? process.env.EQUICORD_USER_DATA_DIR ?? (
+export const DATA_DIR = process.env.NV_USER_DATA_DIR ?? process.env.EQUICORD_USER_DATA_DIR ?? (
     process.env.DISCORD_USER_DATA_DIR
-        ? join(process.env.DISCORD_USER_DATA_DIR, "..", "KamidereData", suffix)
-        : join(app.getPath("userData"), "..", "Kamidere", suffix)
+        ? join(process.env.DISCORD_USER_DATA_DIR, "..", "NvData", suffix)
+        : join(app.getPath("userData"), "..", "Nv", suffix)
 );
 
 if (DATA_DIR !== LEGACY_DATA_DIR && !existsSync(DATA_DIR) && existsSync(LEGACY_DATA_DIR)) {
     try {
         cpSync(LEGACY_DATA_DIR, DATA_DIR, { recursive: true });
     } catch (err) {
-        console.error("[Kamidere] Failed to migrate legacy data:", err);
+        console.error("[Nv] Failed to migrate legacy data:", err);
     }
 }
 
@@ -81,7 +81,7 @@ if (IS_DEV) {
                 app.relaunch();
                 app.exit(0);
             } catch (err) {
-                console.error("[Kamidere] Failed to copy prod data:", err);
+                console.error("[Nv] Failed to copy prod data:", err);
             }
         }, 5000);
     }

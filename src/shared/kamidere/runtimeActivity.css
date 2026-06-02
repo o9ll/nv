@@ -1,13 +1,13 @@
-.vc-kamidere-runtime-hud-root {
+.vc-nv-runtime-hud-root {
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 2147483000;
 }
 
-.vc-kamidere-runtime-hud,
-.vc-kamidere-runtime-launcher,
-.vc-kamidere-runtime-morph-ghost {
+.vc-nv-runtime-hud,
+.vc-nv-runtime-launcher,
+.vc-nv-runtime-morph-ghost {
     position: absolute;
     will-change: transform;
     --runtime-accent: var(--green-360, #3ba55c);
@@ -20,9 +20,9 @@
     --runtime-muted: color-mix(in srgb, var(--green-360, #3ba55c) 82%, white 18%);
 }
 
-.vc-kamidere-runtime-hud.vc-kamidere-runtime-state-idle,
-.vc-kamidere-runtime-launcher.vc-kamidere-runtime-state-idle,
-.vc-kamidere-runtime-morph-ghost.vc-kamidere-runtime-state-idle {
+.vc-nv-runtime-hud.vc-nv-runtime-state-idle,
+.vc-nv-runtime-launcher.vc-nv-runtime-state-idle,
+.vc-nv-runtime-morph-ghost.vc-nv-runtime-state-idle {
     --runtime-accent: color-mix(in srgb, var(--interactive-normal, #b5bac1) 84%, white 16%);
     --runtime-border: rgb(255 255 255 / 12%);
     --runtime-border-soft: rgb(255 255 255 / 8%);
@@ -33,13 +33,13 @@
     --runtime-muted: color-mix(in srgb, var(--interactive-normal, #b5bac1) 82%, white 18%);
 }
 
-.vc-kamidere-runtime-hud,
-.vc-kamidere-runtime-launcher {
+.vc-nv-runtime-hud,
+.vc-nv-runtime-launcher {
     pointer-events: auto;
     -webkit-app-region: no-drag;
 }
 
-.vc-kamidere-runtime-hud {
+.vc-nv-runtime-hud {
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -53,21 +53,21 @@
     overflow: hidden;
 }
 
-.vc-kamidere-runtime-hud.vc-kamidere-runtime-hud-empty {
+.vc-nv-runtime-hud.vc-nv-runtime-hud-empty {
     min-height: 64px;
 }
 
-.vc-kamidere-runtime-hud.vc-kamidere-runtime-hud-interacting {
+.vc-nv-runtime-hud.vc-nv-runtime-hud-interacting {
     transition: none;
     box-shadow: 0 22px 52px rgb(0 0 0 / 38%);
 }
 
-.vc-kamidere-runtime-hud.vc-kamidere-runtime-hud-collapsing {
+.vc-nv-runtime-hud.vc-nv-runtime-hud-collapsing {
     opacity: 0;
     pointer-events: none;
 }
 
-.vc-kamidere-runtime-launcher {
+.vc-nv-runtime-launcher {
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;
@@ -84,13 +84,13 @@
     transition: transform 140ms ease, color 140ms ease, opacity 140ms ease;
 }
 
-.vc-kamidere-runtime-launcher:hover {
+.vc-nv-runtime-launcher:hover {
     transform: translateY(-1px);
     color: var(--runtime-accent-strong);
     background: transparent;
 }
 
-.vc-kamidere-runtime-launcher-icon {
+.vc-nv-runtime-launcher-icon {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -99,7 +99,7 @@
     height: 12px;
 }
 
-.vc-kamidere-runtime-launcher-icon-ring {
+.vc-nv-runtime-launcher-icon-ring {
     width: 12px;
     height: 12px;
     border-radius: 999px;
@@ -109,11 +109,11 @@
     transition: background 180ms ease;
 }
 
-.vc-kamidere-runtime-launcher-icon.vc-kamidere-runtime-launcher-icon-spinning .vc-kamidere-runtime-launcher-icon-ring {
-    animation: vc-kamidere-runtime-spin 0.78s linear infinite;
+.vc-nv-runtime-launcher-icon.vc-nv-runtime-launcher-icon-spinning .vc-nv-runtime-launcher-icon-ring {
+    animation: vc-nv-runtime-spin 0.78s linear infinite;
 }
 
-.vc-kamidere-runtime-header {
+.vc-nv-runtime-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -122,18 +122,18 @@
     user-select: none;
 }
 
-.vc-kamidere-runtime-header.vc-kamidere-runtime-header-dragging {
+.vc-nv-runtime-header.vc-nv-runtime-header-dragging {
     cursor: grabbing;
 }
 
-.vc-kamidere-runtime-title-row {
+.vc-nv-runtime-title-row {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     min-width: 0;
 }
 
-.vc-kamidere-runtime-title-dot {
+.vc-nv-runtime-title-dot {
     width: 8px;
     height: 8px;
     border-radius: 999px;
@@ -143,7 +143,7 @@
     transition: background 180ms ease, box-shadow 180ms ease;
 }
 
-.vc-kamidere-runtime-title {
+.vc-nv-runtime-title {
     color: var(--text-strong);
     font-size: 0.72rem;
     font-weight: 700;
@@ -152,14 +152,14 @@
     line-height: 1;
 }
 
-.vc-kamidere-runtime-header-actions {
+.vc-nv-runtime-header-actions {
     display: inline-flex;
     align-items: center;
     gap: 4px;
     flex-shrink: 0;
 }
 
-.vc-kamidere-runtime-header-button {
+.vc-nv-runtime-header-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -174,24 +174,24 @@
     transition: background-color 140ms ease, color 140ms ease, box-shadow 140ms ease;
 }
 
-.vc-kamidere-runtime-header-button:hover {
+.vc-nv-runtime-header-button:hover {
     background: var(--runtime-accent-soft);
     color: var(--runtime-accent-strong);
     box-shadow: 0 0 0 1px color-mix(in srgb, var(--runtime-accent) 20%, transparent);
 }
 
-.vc-kamidere-runtime-header-button:disabled {
+.vc-nv-runtime-header-button:disabled {
     opacity: 0.4;
     cursor: default;
 }
 
-.vc-kamidere-runtime-task-row {
+.vc-nv-runtime-task-row {
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-.vc-kamidere-runtime-task {
+.vc-nv-runtime-task {
     min-width: 0;
     padding: 8px 10px;
     border-radius: 6px;
@@ -200,18 +200,18 @@
     transition: opacity 140ms ease, transform 140ms ease, border-color 140ms ease;
 }
 
-.vc-kamidere-runtime-task.vc-kamidere-runtime-task-enter {
-    animation: vc-kamidere-runtime-enter 180ms cubic-bezier(0.2, 0.9, 0.3, 1);
+.vc-nv-runtime-task.vc-nv-runtime-task-enter {
+    animation: vc-nv-runtime-enter 180ms cubic-bezier(0.2, 0.9, 0.3, 1);
 }
 
-.vc-kamidere-runtime-task-main {
+.vc-nv-runtime-task-main {
     display: flex;
     align-items: center;
     gap: 8px;
     min-width: 0;
 }
 
-.vc-kamidere-runtime-task-spinner {
+.vc-nv-runtime-task-spinner {
     width: 15px;
     height: 15px;
     flex: 0 0 15px;
@@ -219,29 +219,29 @@
     background: conic-gradient(from 90deg, color-mix(in srgb, var(--runtime-accent) 12%, transparent), color-mix(in srgb, var(--runtime-accent) 24%, transparent), var(--runtime-accent), color-mix(in srgb, var(--runtime-accent) 24%, transparent));
     -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 0);
     mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 0);
-    animation: vc-kamidere-runtime-spin 0.78s linear infinite;
+    animation: vc-nv-runtime-spin 0.78s linear infinite;
 }
 
-.vc-kamidere-runtime-task-spinner[aria-hidden="true"] {
+.vc-nv-runtime-task-spinner[aria-hidden="true"] {
     animation: none;
     background: radial-gradient(circle, rgb(255 255 255 / 18%) 0 45%, transparent 50%);
     -webkit-mask: none;
     mask: none;
 }
 
-.vc-kamidere-runtime-task-copy {
+.vc-nv-runtime-task-copy {
     min-width: 0;
     flex: 1 1 auto;
 }
 
-.vc-kamidere-runtime-task-title-row {
+.vc-nv-runtime-task-title-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
 }
 
-.vc-kamidere-runtime-task-name {
+.vc-nv-runtime-task-name {
     color: var(--text-strong);
     font-size: 0.72rem;
     font-weight: 600;
@@ -251,7 +251,7 @@
     text-overflow: ellipsis;
 }
 
-.vc-kamidere-runtime-task-count {
+.vc-nv-runtime-task-count {
     color: var(--text-muted);
     font-size: 0.62rem;
     font-weight: 600;
@@ -259,7 +259,7 @@
     flex-shrink: 0;
 }
 
-.vc-kamidere-runtime-task-detail {
+.vc-nv-runtime-task-detail {
     margin-top: 2px;
     color: var(--text-muted);
     font-size: 0.62rem;
@@ -269,7 +269,7 @@
     text-overflow: ellipsis;
 }
 
-.vc-kamidere-runtime-task-progress-track {
+.vc-nv-runtime-task-progress-track {
     position: relative;
     margin-top: 6px;
     width: 100%;
@@ -279,7 +279,7 @@
     background: rgb(255 255 255 / 7%);
 }
 
-.vc-kamidere-runtime-task-progress-fill {
+.vc-nv-runtime-task-progress-fill {
     position: absolute;
     inset: 0 auto 0 0;
     border-radius: inherit;
@@ -287,24 +287,24 @@
     transition: width 160ms ease;
 }
 
-.vc-kamidere-runtime-empty-state {
+.vc-nv-runtime-empty-state {
     display: block;
     min-width: 0;
     padding: 2px 0 0;
 }
 
-.vc-kamidere-runtime-empty-copy {
+.vc-nv-runtime-empty-copy {
     min-width: 0;
 }
 
-.vc-kamidere-runtime-empty-title {
+.vc-nv-runtime-empty-title {
     color: var(--text-strong);
     font-size: 0.72rem;
     font-weight: 600;
     line-height: 1.1;
 }
 
-.vc-kamidere-runtime-empty-detail {
+.vc-nv-runtime-empty-detail {
     margin-top: 2px;
     color: var(--text-muted);
     font-size: 0.62rem;
@@ -314,7 +314,7 @@
     text-overflow: ellipsis;
 }
 
-.vc-kamidere-runtime-resize-edge {
+.vc-nv-runtime-resize-edge {
     position: absolute;
     top: 0;
     right: -4px;
@@ -323,7 +323,7 @@
     cursor: ew-resize;
 }
 
-.vc-kamidere-runtime-morph-ghost {
+.vc-nv-runtime-morph-ghost {
     pointer-events: none;
     border: 1px solid var(--runtime-border);
     border-radius: 6px;
@@ -341,17 +341,17 @@
         opacity 170ms ease;
 }
 
-.vc-kamidere-runtime-morph-ghost.vc-kamidere-runtime-morph-ghost-active {
+.vc-nv-runtime-morph-ghost.vc-nv-runtime-morph-ghost-active {
     opacity: 0.86;
 }
 
-@keyframes vc-kamidere-runtime-spin {
+@keyframes vc-nv-runtime-spin {
     to {
         transform: rotate(360deg);
     }
 }
 
-@keyframes vc-kamidere-runtime-enter {
+@keyframes vc-nv-runtime-enter {
     from {
         opacity: 0;
         transform: translateY(4px) scale(0.985);

@@ -229,7 +229,7 @@ async function uploadPluginListFile(channelId: string, fileContent: string, file
     });
 }
 
-async function generateKamidereDebugInfoMessage() {
+async function generateNvDebugInfoMessage() {
     const { RELEASE_CHANNEL } = window.GLOBAL_ENV;
 
     const clientInfo = detectClient();
@@ -378,14 +378,14 @@ export default definePlugin({
 
     commands: [
         {
-            name: "kamidere-debug",
+            name: "nv-debug",
             description: `Send ${BRAND_NAME} debug info`,
             // @ts-ignore
             predicate: ctx => isAnyPluginDev(UserStore.getCurrentUser()?.id) || isEquicordGuild(ctx?.guild?.id, true),
-            execute: async () => ({ content: await generateKamidereDebugInfoMessage() })
+            execute: async () => ({ content: await generateNvDebugInfoMessage() })
         },
         {
-            name: "kamidere-plugins",
+            name: "nv-plugins",
             description: `Send ${BRAND_NAME} plugin list`,
             // @ts-ignore
             predicate: ctx => isAnyPluginDev(UserStore.getCurrentUser()?.id) || isEquicordGuild(ctx?.guild?.id, true),
@@ -513,8 +513,8 @@ export default definePlugin({
 
         if (isSupportChannel(props.channel.id) && PermissionStore.can(PermissionsBits.SEND_MESSAGES, props.channel) && equicordSupport) {
             if (
-                props.message.content.includes("/kamidere-debug")
-                || props.message.content.includes("/kamidere-plugins")
+                props.message.content.includes("/nv-debug")
+                || props.message.content.includes("/nv-plugins")
                 || props.message.content.includes("/equicord-debug")
                 || props.message.content.includes("/equicord-plugins")
             ) {
@@ -522,9 +522,9 @@ export default definePlugin({
                     <Button
                         key="vc-dbg"
                         color={Button.Colors.PRIMARY}
-                        onClick={async () => sendMessage(props.channel.id, { content: await generateKamidereDebugInfoMessage() })}
+                        onClick={async () => sendMessage(props.channel.id, { content: await generateNvDebugInfoMessage() })}
                     >
-                        Run /kamidere-debug
+                        Run /nv-debug
                     </Button>,
                     <Button
                         key="vc-plg-list"
@@ -544,7 +544,7 @@ export default definePlugin({
                             }
                         }}
                     >
-                        Run /kamidere-plugins
+                        Run /nv-plugins
                     </Button>
                 );
             }

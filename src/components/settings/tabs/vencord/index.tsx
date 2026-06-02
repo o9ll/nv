@@ -72,7 +72,7 @@ function isCountablePlugin(plugin: unknown): plugin is { hidden?: boolean; name:
         && typeof (plugin as { name?: unknown; }).name === "string";
 }
 
-function KamidereSettings() {
+function NvSettings() {
     const settings = useSettings();
     const needsVibrancySettings = IS_DISCORD_DESKTOP && IS_MAC;
 
@@ -93,72 +93,72 @@ function KamidereSettings() {
         restartRequired?: boolean;
         warning: { enabled: boolean; message?: string; };
     }> = [
-        {
-            key: "useQuickCss",
-            title: "Enable Custom CSS",
-            description: "Load custom CSS from the QuickCSS editor so you can reshape Discord's visual surface with your own styles.",
-            restartRequired: true,
-            warning: { enabled: false },
-        },
-        !IS_WEB && {
-            key: "enableReactDevtools",
-            title: "Enable React Developer Tools",
-            description: "Expose React DevTools for inspecting Discord internals and debugging plugin UI.",
-            restartRequired: true,
-            warning: { enabled: false },
-        },
-        (!IS_WEB && !IS_DISCORD_DESKTOP || !IS_WINDOWS) && {
-            key: "mainWindowFrameless",
-            title: "Disable the Main Window Frame",
-            description: "Strip the native frame for a cleaner shell while keeping Discord's title area draggable.",
-            restartRequired: true,
-            warning: { enabled: false },
-        },
-        !IS_WEB &&
-        (!IS_DISCORD_DESKTOP || !IS_WINDOWS
-            ? {
-                key: "frameless",
-                title: "Disable All Window Frames",
-                description: "Remove native window chrome across every app window.",
+            {
+                key: "useQuickCss",
+                title: "Enable Custom CSS",
+                description: "Load custom CSS from the QuickCSS editor so you can reshape Discord's visual surface with your own styles.",
                 restartRequired: true,
                 warning: { enabled: false },
-            }
-            : {
-                key: "winNativeTitleBar",
-                title: "Use the native Windows title bar",
-                description: "Swap Discord's custom title bar for the stock Windows frame to improve compatibility with tiling and window tools.",
-                restartRequired: true,
-                warning: { enabled: false },
-            }
-        ),
-        !IS_WEB && {
-            key: "transparent",
-            title: "Enable Window Transparency",
-            description: "Make the window transparent. Pair this with a transparency-aware theme or QuickCSS setup.",
-            restartRequired: true,
-            warning: {
-                enabled: true,
-                message: IS_WINDOWS
-                    ? "Transparent mode disables resizing and prevents window snapping on Windows."
-                    : "Transparent mode disables window resizing.",
             },
-        },
-        IS_DISCORD_DESKTOP && {
-            key: "disableMinSize",
-            title: "Disable Minimum Window Size",
-            description: "Let the window shrink below Discord's default limits for compact layouts and tiling setups.",
-            restartRequired: true,
-            warning: { enabled: false },
-        },
-        !IS_WEB &&
-        IS_WINDOWS && {
-            key: "winCtrlQ",
-            title: "Register Ctrl+Q to close Discord",
-            description: "Add a desktop-style close shortcut without reaching for Alt+F4.",
-            restartRequired: true,
-            warning: { enabled: false },
-        },
-    ];
+            !IS_WEB && {
+                key: "enableReactDevtools",
+                title: "Enable React Developer Tools",
+                description: "Expose React DevTools for inspecting Discord internals and debugging plugin UI.",
+                restartRequired: true,
+                warning: { enabled: false },
+            },
+            (!IS_WEB && !IS_DISCORD_DESKTOP || !IS_WINDOWS) && {
+                key: "mainWindowFrameless",
+                title: "Disable the Main Window Frame",
+                description: "Strip the native frame for a cleaner shell while keeping Discord's title area draggable.",
+                restartRequired: true,
+                warning: { enabled: false },
+            },
+            !IS_WEB &&
+            (!IS_DISCORD_DESKTOP || !IS_WINDOWS
+                ? {
+                    key: "frameless",
+                    title: "Disable All Window Frames",
+                    description: "Remove native window chrome across every app window.",
+                    restartRequired: true,
+                    warning: { enabled: false },
+                }
+                : {
+                    key: "winNativeTitleBar",
+                    title: "Use the native Windows title bar",
+                    description: "Swap Discord's custom title bar for the stock Windows frame to improve compatibility with tiling and window tools.",
+                    restartRequired: true,
+                    warning: { enabled: false },
+                }
+            ),
+            !IS_WEB && {
+                key: "transparent",
+                title: "Enable Window Transparency",
+                description: "Make the window transparent. Pair this with a transparency-aware theme or QuickCSS setup.",
+                restartRequired: true,
+                warning: {
+                    enabled: true,
+                    message: IS_WINDOWS
+                        ? "Transparent mode disables resizing and prevents window snapping on Windows."
+                        : "Transparent mode disables window resizing.",
+                },
+            },
+            IS_DISCORD_DESKTOP && {
+                key: "disableMinSize",
+                title: "Disable Minimum Window Size",
+                description: "Let the window shrink below Discord's default limits for compact layouts and tiling setups.",
+                restartRequired: true,
+                warning: { enabled: false },
+            },
+            !IS_WEB &&
+            IS_WINDOWS && {
+                key: "winCtrlQ",
+                title: "Register Ctrl+Q to close Discord",
+                description: "Add a desktop-style close shortcut without reaching for Alt+F4.",
+                restartRequired: true,
+                warning: { enabled: false },
+            },
+        ];
 
     return (
         <SettingsTab>
@@ -291,4 +291,4 @@ function KamidereSettings() {
     );
 }
 
-export default wrapTab(KamidereSettings, `${BRAND_NAME} Settings`);
+export default wrapTab(NvSettings, `${BRAND_NAME} Settings`);

@@ -9,7 +9,7 @@
     "type": "module",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/clrxxo/Kamidere.git",
+        "url": "git+https://github.com/o9ll/nv.git",
         "directory": "packages/discord-types"
     },
     "dependencies": {

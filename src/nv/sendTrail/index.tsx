@@ -20,8 +20,8 @@ import { buildJumpLink, collectMessageMediaItems, getChannelRecipientIds, getMes
 
 const DRAFT_TTL_MS = 20_000;
 const MIN_MATCH_SCORE = 4;
-const SEND_TRAIL_SETTINGS_KEY = "kamidere_send_trail";
-const SEND_TRAIL_SETTINGS_SECTION = "KamidereSendTrail";
+const SEND_TRAIL_SETTINGS_KEY = "nv_send_trail";
+const SEND_TRAIL_SETTINGS_SECTION = "NvSendTrail";
 
 let draftCounter = 0;
 const pendingDrafts = new Map<string, PendingSendDraft>();
@@ -261,11 +261,11 @@ function registerSendTrailSettingsTab() {
 
 export default definePlugin({
     name: "SendTrail",
-    description: "Tracks your newly sent messages, lets you select them, and purges them in a dedicated Kamidere settings page.",
-    authors: [Devs.clrxxo],
+    description: "Tracks your newly sent messages, lets you select them, and purges them in a dedicated Nv settings page.",
+    authors: [Devs.o9],
     dependencies: ["Settings", "MessageEventsAPI"],
     enabledByDefault: true,
-    tags: ["kamidere", "chat", "utility"],
+    tags: ["nv", "chat", "utility"],
     requiresRestart: false,
     settings,
     settingsTab: {

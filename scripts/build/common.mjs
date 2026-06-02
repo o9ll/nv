@@ -57,11 +57,11 @@ function tryExec(command, fallback = "") {
     }
 }
 
-export const gitHash = process.env.KAMIDERE_HASH || process.env.EQUICORD_HASH || tryExec("git rev-parse HEAD", "local-dev");
+export const gitHash = process.env.NV_HASH || process.env.EQUICORD_HASH || tryExec("git rev-parse HEAD", "local-dev");
 
 export const banner = {
     js: `
-// Kamidere ${gitHash}
+// Nv ${gitHash}
 // Standalone: ${IS_STANDALONE}
 // Platform: ${IS_STANDALONE === false ? process.platform : "Universal"}
 // Updater Disabled: ${IS_UPDATER_DISABLED}
@@ -155,7 +155,7 @@ export const globPlugins = kind => ({
         });
 
         build.onLoad({ filter, namespace: "import-plugins" }, async () => {
-            const pluginDirs = ["plugins/_api", "plugins/_core", "plugins", "userplugins", "equicordplugins", "equicordplugins/_api", "kamidereplugins"];
+            const pluginDirs = ["plugins/_api", "plugins/_core", "plugins", "userplugins", "equicordplugins", "equicordplugins/_api", "nv"];
             let code = "";
             let pluginsCode = "\n";
             let metaCode = "\n";
@@ -237,7 +237,7 @@ export const gitRemotePlugin = {
             namespace: "git-remote", path: args.path
         }));
         build.onLoad({ filter, namespace: "git-remote" }, async () => {
-            let remote = process.env.KAMIDERE_REMOTE || process.env.EQUICORD_REMOTE;
+            let remote = process.env.NV_REMOTE || process.env.EQUICORD_REMOTE;
             if (!remote) {
                 try {
                     const res = await promisify(exec)("git remote get-url origin", { encoding: "utf-8" });

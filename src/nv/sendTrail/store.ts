@@ -4,7 +4,7 @@ import type { DispatchWithoutAction } from "react";
 
 import type { SentTrailMediaItem, SentTrailRecord } from "./types";
 
-const STORAGE_PREFIX = "kamidere-send-trail:";
+const STORAGE_PREFIX = "nv-send-trail:";
 const signals = new Set<DispatchWithoutAction>();
 const recordCache = new Map<string, SentTrailRecord[]>();
 

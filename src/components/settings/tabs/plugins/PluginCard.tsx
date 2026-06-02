@@ -125,8 +125,8 @@ export function PluginCard({ plugin, disabled, onRestartNeeded, onMouseEnter, on
                 <div className={cl("settings-tab-restart-notice")}>
                     <div className={cl("settings-tab-restart-copy")}>
                         {settingsTabRestartNotice.enabled
-                            ? `Restart Discord to show the ${plugin.settingsTab?.title} page in Kamidere Settings.`
-                            : `Restart Discord to hide the ${plugin.settingsTab?.title} page from Kamidere Settings.`}
+                            ? `Restart Discord to show the ${plugin.settingsTab?.title} page in Nv Settings.`
+                            : `Restart Discord to hide the ${plugin.settingsTab?.title} page from Nv Settings.`}
                     </div>
                     <Button
                         variant="secondary"

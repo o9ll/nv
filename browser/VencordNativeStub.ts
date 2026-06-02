@@ -35,9 +35,9 @@ const cssListeners = new Set<(css: string) => void>();
 const NOOP = () => { };
 const NOOP_ASYNC = async () => { };
 const repoUrl = gitRemote ? `https://github.com/${gitRemote}` : "";
-const SETTINGS_KEY = "KamidereSettings";
+const SETTINGS_KEY = "NvSettings";
 const LEGACY_SETTINGS_KEY = "EquicordSettings";
-const QUICKCSS_KEY = "KamidereQuickCss";
+const QUICKCSS_KEY = "NvQuickCss";
 const LEGACY_QUICKCSS_KEY = "VencordQuickCss";
 
 const setCssDebounced = debounce((css: string) => VencordNative.quickCss.set(css));
@@ -103,7 +103,7 @@ window.VencordNative = {
             }
 
             const features = `popup,width=${Math.min(window.innerWidth, 1000)},height=${Math.min(window.innerHeight, 1000)}`;
-            const win = open("about:blank", "KamidereQuickCss", features);
+            const win = open("about:blank", "NvQuickCss", features);
             if (!win) {
                 alert("Failed to open QuickCSS popup. Make sure to allow popups!");
                 return;

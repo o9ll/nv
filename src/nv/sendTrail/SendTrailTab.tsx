@@ -5,7 +5,7 @@ import { Button, TextButton } from "@components/Button";
 import { Card } from "@components/Card";
 import { Heading, HeadingTertiary } from "@components/Heading";
 import { CogWheel, DeleteIcon, LogIcon, MagnifyingGlassIcon, OpenExternalIcon } from "@components/Icons";
-import { removeKamidereRuntimeTask, upsertKamidereRuntimeTask } from "@shared/kamidere/runtimeActivity";
+import { removeNvRuntimeTask, upsertNvRuntimeTask } from "@shared/nv/runtimeActivity";
 import { Notice } from "@components/Notice";
 import { Paragraph } from "@components/Paragraph";
 import { SettingsTab, wrapTab } from "@components/settings";
@@ -29,7 +29,7 @@ const PURGE_STATUS_HIDE_DELAY_MS = 2400;
 const PURGE_STATUS_TRANSITION_MS = 280;
 const DEFAULT_PAGE_SIZE: PageSizeValue = "5";
 const INPUT_TEXT_COLOR = "var(--text-normal, var(--header-primary, #f2f3f5))";
-const PURGE_RUNTIME_TASK_ID = "kamidere-send-trail:purge";
+const PURGE_RUNTIME_TASK_ID = "nv-send-trail:purge";
 
 const HERO_BACKGROUND = `data:image/svg+xml;utf8,${encodeURIComponent(
     [
@@ -116,7 +116,7 @@ function makeEmptyPurgeStatus(): PurgeStatusState {
 
 function syncPurgeRuntimeTask(status: PurgeStatusState, startedAt: number) {
     if (status.phase === "idle") {
-        removeKamidereRuntimeTask(PURGE_RUNTIME_TASK_ID);
+        removeNvRuntimeTask(PURGE_RUNTIME_TASK_ID);
         return;
     }
 
@@ -141,7 +141,7 @@ function syncPurgeRuntimeTask(status: PurgeStatusState, startedAt: number) {
                 ? `${status.failed} failed`
                 : "idle";
 
-    upsertKamidereRuntimeTask({
+    upsertNvRuntimeTask({
         id: PURGE_RUNTIME_TASK_ID,
         toolId: "send-trail-purge",
         name: "Send Trail Purge",
@@ -420,7 +420,7 @@ function SendTrailConfigModal({
                 .filter(isDirectMessageRecord)
                 .flatMap(record => getRecordRecipientIds(record)),
         ])).sort(),
-    [protectedDmUserIds, records]);
+        [protectedDmUserIds, records]);
     const dmConversations = React.useMemo(() => buildDmConversations(records), [records]);
     const [resolvedDmUsers, setResolvedDmUsers] = React.useState<Record<string, Pick<DmUserContact, "label" | "details" | "avatarUrl">>>({});
     const dmUserContacts = React.useMemo(
@@ -909,7 +909,7 @@ function SendTrailTab() {
 
         if (delayMs > 0) {
             purgeRuntimeTimerRef.current = window.setTimeout(() => {
-                removeKamidereRuntimeTask(PURGE_RUNTIME_TASK_ID);
+                removeNvRuntimeTask(PURGE_RUNTIME_TASK_ID);
                 purgeRuntimeStartedAtRef.current = null;
                 purgeRuntimeTimerRef.current = null;
             }, delayMs);

@@ -1,9 +1,9 @@
 import { MagnifyingGlassIcon } from "@components/Icons";
 import SettingsPlugin from "@plugins/_core/settings";
 import {
-    mountKamidereRuntimeActivity,
-    unmountKamidereRuntimeActivity,
-} from "@shared/kamidere/runtimeActivity";
+    mountNvRuntimeActivity,
+    unmountNvRuntimeActivity,
+} from "@shared/nv/runtimeActivity";
 import { Devs } from "@utils/constants";
 import { removeFromArray } from "@utils/misc";
 import definePlugin from "@utils/types";
@@ -11,8 +11,8 @@ import definePlugin from "@utils/types";
 import MutualScannerTab from "./MutualScannerTab";
 import { resetMutualScannerRuntime } from "./runtime";
 
-const MUTUAL_SCANNER_SETTINGS_KEY = "kamidere_mutual_scanner";
-const MUTUAL_SCANNER_SETTINGS_SECTION = "KamidereMutualScanner";
+const MUTUAL_SCANNER_SETTINGS_KEY = "nv_mutual_scanner";
+const MUTUAL_SCANNER_SETTINGS_SECTION = "NvMutualScanner";
 
 function unregisterMutualScannerSettingsTab() {
     while (SettingsPlugin.customEntries.some(entry => entry.key === MUTUAL_SCANNER_SETTINGS_KEY)) {
@@ -43,10 +43,10 @@ function registerMutualScannerSettingsTab() {
 export default definePlugin({
     name: "MutualScanner",
     description: "Scans selected servers for members that share at least one mutual friend with your account and saves the results locally.",
-    authors: [Devs.clrxxo],
+    authors: [Devs.o9],
     dependencies: ["Settings"],
     enabledByDefault: true,
-    tags: ["kamidere", "osint", "mutuals"],
+    tags: ["nv", "osint", "mutuals"],
     requiresRestart: false,
     settingsTab: {
         route: `${MUTUAL_SCANNER_SETTINGS_KEY}_panel`,
@@ -54,13 +54,13 @@ export default definePlugin({
     },
 
     start() {
-        mountKamidereRuntimeActivity();
+        mountNvRuntimeActivity();
         registerMutualScannerSettingsTab();
     },
 
     stop() {
         resetMutualScannerRuntime();
-        unmountKamidereRuntimeActivity();
+        unmountNvRuntimeActivity();
         unregisterMutualScannerSettingsTab();
     },
 });

@@ -6,8 +6,8 @@ import definePlugin from "@utils/types";
 
 import PresenceLabTab from "./PresenceLabTab";
 
-const PRESENCE_LAB_SETTINGS_KEY = "kamidere_presence_lab";
-const PRESENCE_LAB_SETTINGS_SECTION = "KamiderePresenceLab";
+const PRESENCE_LAB_SETTINGS_KEY = "nv_presence_lab";
+const PRESENCE_LAB_SETTINGS_SECTION = "NvPresenceLab";
 
 function unregisterPresenceLabSettingsTab() {
     while (SettingsPlugin.customEntries.some(entry => entry.key === PRESENCE_LAB_SETTINGS_KEY)) {
@@ -38,9 +38,9 @@ function registerPresenceLabSettingsTab() {
 export default definePlugin({
     name: "PresenceLab",
     description: "Local-only dashboard for operators, targets, and manually logged experimental presence sessions.",
-    authors: [Devs.clrxxo],
+    authors: [Devs.o9],
     enabledByDefault: true,
-    tags: ["kamidere", "dashboard", "experimental"],
+    tags: ["nv", "dashboard", "experimental"],
     requiresRestart: false,
     settingsTab: {
         route: `${PRESENCE_LAB_SETTINGS_KEY}_panel`,

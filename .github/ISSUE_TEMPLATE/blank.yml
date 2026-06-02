@@ -5,8 +5,8 @@ body:
     - type: markdown
       attributes:
           value: |
-              GitHub Issues are for development and tracked bugs in Kamidere.
-              If your report is specifically about the installer flow, include whether it happened in `KamidereInstaller`.
+              GitHub Issues are for development and tracked bugs in Nv.
+              If your report is specifically about the installer flow, include whether it happened in `NvInstaller`.
 
     - type: textarea
       id: content

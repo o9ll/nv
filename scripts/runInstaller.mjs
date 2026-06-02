@@ -1,6 +1,6 @@
 /*
- * Kamidere, a modification for Discord's desktop app
- * Copyright (c) 2026 Kamidere contributors
+ * Nv, a modification for Discord's desktop app
+ * Copyright (c) 2026 Nv contributors
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,12 +25,12 @@ import { Readable } from "stream";
 import { finished } from "stream/promises";
 import { fileURLToPath } from "url";
 
-const BASE_URL = process.env.KAMIDERE_INSTALLER_BASE_URL || "https://github.com/clrxxo/KamidereInstaller/releases/latest/download/";
-const INSTALLER_PATH_DARWIN = process.env.KAMIDERE_INSTALLER_PATH_DARWIN || "KamidereInstaller.app/Contents/MacOS/KamidereInstaller";
-const INSTALLER_APP_DARWIN = process.env.KAMIDERE_INSTALLER_APP_DARWIN || "KamidereInstaller.app";
+const BASE_URL = process.env.NV_INSTALLER_BASE_URL || "https://github.com/o9ll/nvInstaller/releases/latest/download/";
+const INSTALLER_PATH_DARWIN = process.env.NV_INSTALLER_PATH_DARWIN || "NvInstaller.app/Contents/MacOS/nvInstaller";
+const INSTALLER_APP_DARWIN = process.env.NV_INSTALLER_APP_DARWIN || "NvInstaller.app";
 
 const BASE_DIR = join(dirname(fileURLToPath(import.meta.url)), "..");
-const INSTALLER_PROJECT_DIR = join(dirname(BASE_DIR), "KamidereInstaller");
+const INSTALLER_PROJECT_DIR = join(dirname(BASE_DIR), "NvInstaller");
 const FILE_DIR = join(BASE_DIR, "dist", "Installer");
 
 function unique(values) {
@@ -41,20 +41,20 @@ function installerDownloadCandidates() {
     switch (process.platform) {
         case "win32":
             return unique([
-                process.env.KAMIDERE_INSTALLER_FILENAME_WIN32,
-                "KamidereCli.exe",
+                process.env.NV_INSTALLER_FILENAME_WIN32,
+                "NvCli.exe",
                 "EquilotlCli.exe"
             ].filter(Boolean));
         case "darwin":
             return unique([
-                process.env.KAMIDERE_INSTALLER_FILENAME_DARWIN,
-                "KamidereInstaller.MacOS.zip",
+                process.env.NV_INSTALLER_FILENAME_DARWIN,
+                "NvInstaller.MacOS.zip",
                 "Equilotl.MacOS.zip"
             ].filter(Boolean));
         case "linux":
             return unique([
-                process.env.KAMIDERE_INSTALLER_FILENAME_LINUX,
-                "KamidereCli-linux",
+                process.env.NV_INSTALLER_FILENAME_LINUX,
+                "NvCli-linux",
                 "EquilotlCli-linux",
                 "EquilotlCli-Linux"
             ].filter(Boolean));
@@ -70,18 +70,18 @@ function installerBinaryCandidates() {
     switch (process.platform) {
         case "win32":
             project.push(
-                join(INSTALLER_PROJECT_DIR, "KamidereCli.exe"),
+                join(INSTALLER_PROJECT_DIR, "NvCli.exe"),
                 join(INSTALLER_PROJECT_DIR, "EquilotlCli.exe")
             );
             cached.push(
-                join(FILE_DIR, "KamidereCli.exe"),
+                join(FILE_DIR, "NvCli.exe"),
                 join(FILE_DIR, "EquilotlCli.exe")
             );
             break;
         case "darwin":
             project.push(
                 join(INSTALLER_PROJECT_DIR, INSTALLER_PATH_DARWIN),
-                join(INSTALLER_PROJECT_DIR, "KamidereInstaller"),
+                join(INSTALLER_PROJECT_DIR, "NvInstaller"),
                 join(INSTALLER_PROJECT_DIR, "Equilotl.app", "Contents", "MacOS", "Equilotl")
             );
             cached.push(
@@ -91,11 +91,11 @@ function installerBinaryCandidates() {
             break;
         case "linux":
             project.push(
-                join(INSTALLER_PROJECT_DIR, "KamidereCli-linux"),
+                join(INSTALLER_PROJECT_DIR, "NvCli-linux"),
                 join(INSTALLER_PROJECT_DIR, "EquilotlCli-linux")
             );
             cached.push(
-                join(FILE_DIR, "KamidereCli-linux"),
+                join(FILE_DIR, "NvCli-linux"),
                 join(FILE_DIR, "EquilotlCli-linux"),
                 join(FILE_DIR, "EquilotlCli-Linux")
             );
@@ -108,7 +108,7 @@ function installerBinaryCandidates() {
 }
 
 function resolveInstallerOverride() {
-    const override = process.env.KAMIDERE_INSTALLER_BIN;
+    const override = process.env.NV_INSTALLER_BIN;
     if (!override)
         return null;
 
@@ -128,7 +128,7 @@ function getEtagFile(filename) {
 }
 
 async function downloadInstaller(filename) {
-    console.log(`Downloading Kamidere installer payload (${filename})`);
+    console.log(`Downloading Nv installer payload (${filename})`);
 
     const downloadName = join(FILE_DIR, filename);
     const outputFile = process.platform === "darwin"
@@ -144,7 +144,7 @@ async function downloadInstaller(filename) {
 
     const res = await fetch(BASE_URL + filename, {
         headers: {
-            "User-Agent": "Kamidere",
+            "User-Agent": "Nv",
             "If-None-Match": etag
         }
     });
@@ -175,7 +175,7 @@ async function downloadInstaller(filename) {
             console.log("Running", cmd);
             try {
                 execSync(cmd);
-            } catch {}
+            } catch { }
         };
         logAndRun(`sudo xattr -dr com.apple.quarantine '${outputApp}'`);
     } else {
@@ -199,7 +199,7 @@ async function ensureBinary() {
 
     const localInstaller = findLocalInstaller();
     if (localInstaller) {
-        console.log(`Using local Kamidere installer: ${localInstaller}`);
+        console.log(`Using local Nv installer: ${localInstaller}`);
         return localInstaller;
     }
 
@@ -209,12 +209,12 @@ async function ensureBinary() {
             return downloaded;
     }
 
-    throw new Error(`Failed to find a compatible Kamidere installer binary. Checked ${INSTALLER_PROJECT_DIR} and ${BASE_URL}`);
+    throw new Error(`Failed to find a compatible Nv installer binary. Checked ${INSTALLER_PROJECT_DIR} and ${BASE_URL}`);
 }
 
 const installerBin = await ensureBinary();
 
-console.log("Now running Kamidere Installer...");
+console.log("Now running Nv Installer...");
 
 const argStart = process.argv.indexOf("--");
 const args = argStart === -1 ? [] : process.argv.slice(argStart + 1);
@@ -224,9 +224,9 @@ try {
         stdio: "inherit",
         env: {
             ...process.env,
-            KAMIDERE_USER_DATA_DIR: BASE_DIR,
-            KAMIDERE_DIRECTORY: join(BASE_DIR, "dist/desktop"),
-            KAMIDERE_DEV_INSTALL: "1",
+            NV_USER_DATA_DIR: BASE_DIR,
+            NV_DIRECTORY: join(BASE_DIR, "dist/desktop"),
+            NV_DEV_INSTALL: "1",
             EQUICORD_USER_DATA_DIR: BASE_DIR,
             EQUICORD_DIRECTORY: join(BASE_DIR, "dist/desktop"),
             EQUICORD_DEV_INSTALL: "1"

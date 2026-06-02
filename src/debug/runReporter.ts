@@ -28,7 +28,7 @@ async function runReporter() {
                 match: /(?<="use strict";)/,
                 replace: "Vencord.Webpack._initReporter();"
             }
-        }, "Kamidere Reporter");
+        }, "Nv Reporter");
 
         // @ts-expect-error
         Vencord.Webpack._initReporter = function () {

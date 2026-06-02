@@ -1,6 +1,6 @@
 # Introduction
 
-Kamidere is a community project and welcomes contributions of all kinds.
+Nv is a community project and welcomes contributions of all kinds.
 
 The codebase is large, so start by reading the local source tree and the README before making changes.
 
@@ -32,7 +32,7 @@ Before starting your plugin:
 
 ## Plugin Rules
 
-To keep Kamidere stable, secure, and maintainable, all plugins must follow these rules:
+To keep Nv stable, secure, and maintainable, all plugins must follow these rules:
 1. No simple slash-command plugins (e.g. `/cat`). If applicable, create a [user-installable Discord app](https://discord.com/developers/docs/change-log#userinstallable-apps-preview) instead.
 2. No simple text replacement plugins (the built-in TextReplace plugin already covers this).
 3. No raw DOM manipulation — always use proper patches and React.
@@ -47,9 +47,9 @@ To keep Kamidere stable, secure, and maintainable, all plugins must follow these
 
 **Plugins that violate any of these rules will not be accepted.**
 
-## Improving Kamidere Itself
+## Improving Nv Itself
 
-If you want to improve Kamidere beyond plugins, such as internal features or performance work, document the problem clearly and keep the proposed change scoped.
+If you want to improve Nv beyond plugins, such as internal features or performance work, document the problem clearly and keep the proposed change scoped.
 
 Bug fixes, refactors, and documentation improvements are also highly appreciated!
 

@@ -247,7 +247,7 @@ export async function parseFile(fileName: string) {
             .replace(/\/index\.([jt]sx?)$/, "")
             .replace(/^src\/plugins\//, "")
             .replace(/^src\/equicordplugins\//, "")
-            .replace(/^src\/kamidereplugins\//, "");
+            .replace(/^src\/nv\//, "");
 
         return [data] as const;
     }

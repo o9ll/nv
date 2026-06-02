@@ -1,11 +1,11 @@
 import {
     createGuildHydrationController,
     hydrateGuildMemberCache,
-} from "@shared/kamidere/memberHydrator";
+} from "@shared/nv/memberHydrator";
 import {
-    removeKamidereRuntimeTask,
-    upsertKamidereRuntimeTask,
-} from "@shared/kamidere/runtimeActivity";
+    removeNvRuntimeTask,
+    upsertNvRuntimeTask,
+} from "@shared/nv/runtimeActivity";
 import { GuildMemberCountStore, GuildStore, React, Toasts } from "@webpack/common";
 
 import { addMutualScannerRun } from "./store";
@@ -25,8 +25,8 @@ import {
     makeLocalId,
 } from "./utils";
 
-const SCAN_TASK_ID = "kamidere-mutual-scanner:scan";
-const WARMUP_TASK_ID = "kamidere-mutual-scanner:warmup";
+const SCAN_TASK_ID = "nv-mutual-scanner:scan";
+const WARMUP_TASK_ID = "nv-mutual-scanner:warmup";
 
 function showToast(message: string, type: any) {
     Toasts.show({
@@ -183,7 +183,7 @@ function formatScanPhase(
 
 function syncScanTask() {
     if (!state.scan.active) {
-        removeKamidereRuntimeTask(SCAN_TASK_ID);
+        removeNvRuntimeTask(SCAN_TASK_ID);
         return;
     }
 
@@ -193,7 +193,7 @@ function syncScanTask() {
         state.scan.requestDelayMs,
         state.scan.startedAt,
     );
-    upsertKamidereRuntimeTask({
+    upsertNvRuntimeTask({
         id: SCAN_TASK_ID,
         toolId: "mutual-scanner",
         name: "Mutual Scanner",
@@ -208,12 +208,12 @@ function syncScanTask() {
 
 function syncWarmupTask() {
     if (!state.warmup.active) {
-        removeKamidereRuntimeTask(WARMUP_TASK_ID);
+        removeNvRuntimeTask(WARMUP_TASK_ID);
         return;
     }
 
     const progress = state.warmup.progress;
-    upsertKamidereRuntimeTask({
+    upsertNvRuntimeTask({
         id: WARMUP_TASK_ID,
         toolId: "manual-cache-warmup",
         name: "Manual Cache Warmup",
@@ -241,7 +241,7 @@ function finishScan(result: MutualScannerExecutionResult) {
             revision: current.scan.revision + 1,
         },
     }));
-    removeKamidereRuntimeTask(SCAN_TASK_ID);
+    removeNvRuntimeTask(SCAN_TASK_ID);
 }
 
 function finishWarmup() {
@@ -253,7 +253,7 @@ function finishWarmup() {
             revision: current.warmup.revision + 1,
         },
     }));
-    removeKamidereRuntimeTask(WARMUP_TASK_ID);
+    removeNvRuntimeTask(WARMUP_TASK_ID);
 }
 
 export function subscribeMutualScannerRuntime(listener: () => void) {
@@ -274,8 +274,8 @@ export function useMutualScannerRuntimeState() {
 export function cancelMutualScannerRuntime() {
     scanController?.cancel();
     warmupController?.cancel();
-    removeKamidereRuntimeTask(SCAN_TASK_ID);
-    removeKamidereRuntimeTask(WARMUP_TASK_ID);
+    removeNvRuntimeTask(SCAN_TASK_ID);
+    removeNvRuntimeTask(WARMUP_TASK_ID);
 }
 
 export function resetMutualScannerRuntime() {
@@ -347,10 +347,10 @@ export function startMutualScannerRun(ownerId: string | null, config: MutualScan
                 updateState(current => ({
                     ...current,
                     scan: {
-                ...current.scan,
-                requestDelayMs: normalizedConfig.requestDelayMs,
-                progress: { ...progress },
-            },
+                        ...current.scan,
+                        requestDelayMs: normalizedConfig.requestDelayMs,
+                        progress: { ...progress },
+                    },
                 }));
                 syncScanTask();
             },

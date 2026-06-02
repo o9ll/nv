@@ -5,9 +5,9 @@ import ErrorBoundary from "@components/ErrorBoundary";
 import { classNameFactory } from "@utils/css";
 import { createRoot, React } from "@webpack/common";
 
-const cl = classNameFactory("vc-kamidere-runtime-");
+const cl = classNameFactory("vc-nv-runtime-");
 
-const HUD_PREFS_KEY = "kamidere-runtime-activity:v1";
+const HUD_PREFS_KEY = "nv-runtime-activity:v1";
 const TASKS_PER_PAGE = 3;
 const DOCK_LAUNCHER_VISUAL_SIZE = 12;
 const DOCK_LAUNCHER_HITBOX_SIZE = 30;
@@ -27,13 +27,13 @@ const DOCK_ANCHOR_SELECTORS = [
     "[aria-label='Forward']",
 ] as const;
 
-export type KamidereRuntimeTaskStatus = "running" | "completed" | "cancelled" | "failed";
+export type NvRuntimeTaskStatus = "running" | "completed" | "cancelled" | "failed";
 
-export interface KamidereRuntimeTask {
+export interface NvRuntimeTask {
     id: string;
     toolId: string;
     name: string;
-    status: KamidereRuntimeTaskStatus;
+    status: NvRuntimeTaskStatus;
     subtitle?: string;
     detail?: string;
     progressCurrent?: number;
@@ -59,7 +59,7 @@ const DEFAULT_PREFS: RuntimeHudPrefs = {
 };
 
 type RuntimeHudSnapshot = {
-    tasks: KamidereRuntimeTask[];
+    tasks: NvRuntimeTask[];
     prefs: RuntimeHudPrefs;
 };
 
@@ -82,7 +82,7 @@ interface DockedLauncherMetrics {
     size: number;
 }
 
-const taskMap = new Map<string, KamidereRuntimeTask>();
+const taskMap = new Map<string, NvRuntimeTask>();
 const listeners = new Set<() => void>();
 let prefs = { ...DEFAULT_PREFS };
 let prefsLoaded = false;
@@ -195,16 +195,16 @@ function persistPrefs() {
     void DataStore.set(HUD_PREFS_KEY, prefs);
 }
 
-export function subscribeKamidereRuntimeActivity(listener: () => void) {
+export function subscribeNvRuntimeActivity(listener: () => void) {
     listeners.add(listener);
     return () => {
         listeners.delete(listener);
     };
 }
 
-export function upsertKamidereRuntimeTask(task: Omit<KamidereRuntimeTask, "updatedAt"> & { updatedAt?: number; }) {
+export function upsertNvRuntimeTask(task: Omit<NvRuntimeTask, "updatedAt"> & { updatedAt?: number; }) {
     if (!root) {
-        mountKamidereRuntimeActivity();
+        mountNvRuntimeActivity();
     }
     taskMap.set(task.id, {
         ...task,
@@ -213,12 +213,12 @@ export function upsertKamidereRuntimeTask(task: Omit<KamidereRuntimeTask, "updat
     notify();
 }
 
-export function removeKamidereRuntimeTask(taskId: string) {
+export function removeNvRuntimeTask(taskId: string) {
     if (!taskMap.delete(taskId)) return;
     notify();
 }
 
-export function setKamidereRuntimeHudPrefs(next: Partial<RuntimeHudPrefs>) {
+export function setNvRuntimeHudPrefs(next: Partial<RuntimeHudPrefs>) {
     prefs = {
         ...prefs,
         ...next,
@@ -228,7 +228,7 @@ export function setKamidereRuntimeHudPrefs(next: Partial<RuntimeHudPrefs>) {
     notify();
 }
 
-export function mountKamidereRuntimeActivity() {
+export function mountNvRuntimeActivity() {
     if (typeof document === "undefined") return;
     const target = getHudMountTarget();
     if (!target) return;
@@ -243,7 +243,7 @@ export function mountKamidereRuntimeActivity() {
 
     if (!mountNode) {
         mountNode = document.createElement("div");
-        mountNode.id = "vc-kamidere-runtime-hud-root";
+        mountNode.id = "vc-nv-runtime-hud-root";
     }
     if (!mountNode.isConnected) {
         target.appendChild(mountNode);
@@ -252,12 +252,12 @@ export function mountKamidereRuntimeActivity() {
     root = createRoot(mountNode);
     root.render(
         <ErrorBoundary noop>
-            <KamidereRuntimeHud />
+            <NvRuntimeHud />
         </ErrorBoundary>,
     );
 }
 
-export function unmountKamidereRuntimeActivity() {
+export function unmountNvRuntimeActivity() {
     mountUsers = Math.max(0, mountUsers - 1);
     if (mountUsers > 0) return;
 
@@ -267,11 +267,11 @@ export function unmountKamidereRuntimeActivity() {
     mountNode = null;
 }
 
-export function useKamidereRuntimeActivity() {
+export function useNvRuntimeActivity() {
     const [signal, forceUpdate] = React.useReducer(value => value + 1, 0);
 
     React.useEffect(() => {
-        const unsubscribe = subscribeKamidereRuntimeActivity(forceUpdate);
+        const unsubscribe = subscribeNvRuntimeActivity(forceUpdate);
         void loadPrefs();
         return unsubscribe;
     }, []);
@@ -279,7 +279,7 @@ export function useKamidereRuntimeActivity() {
     return React.useMemo(() => getSnapshot(), [signal]);
 }
 
-function TaskCard({ task, animate = true }: { task: KamidereRuntimeTask; animate?: boolean; }) {
+function TaskCard({ task, animate = true }: { task: NvRuntimeTask; animate?: boolean; }) {
     const isRunning = task.status === "running";
     const progressPercent = task.progressTotal && task.progressTotal > 0 && task.progressCurrent != null
         ? Math.min(100, Math.max(0, Math.round((task.progressCurrent / task.progressTotal) * 100)))
@@ -366,8 +366,8 @@ function EmptyStateCard() {
     );
 }
 
-function KamidereRuntimeHud() {
-    const { tasks, prefs: currentPrefs } = useKamidereRuntimeActivity();
+function NvRuntimeHud() {
+    const { tasks, prefs: currentPrefs } = useNvRuntimeActivity();
     const hasActiveTasks = tasks.some(task => task.status === "running");
     const [dragging, setDragging] = React.useState(false);
     const [resizing, setResizing] = React.useState(false);
@@ -475,7 +475,7 @@ function KamidereRuntimeHud() {
             setDragging(false);
             setResizing(false);
             dragStartRef.current = null;
-            setKamidereRuntimeHudPrefs(nextPrefs);
+            setNvRuntimeHudPrefs(nextPrefs);
         };
 
         window.addEventListener("pointermove", onPointerMove);
@@ -580,9 +580,9 @@ function KamidereRuntimeHud() {
 
         const timeout = window.setTimeout(() => {
             if (morphState.mode === "collapse") {
-                setKamidereRuntimeHudPrefs({ hidden: true });
+                setNvRuntimeHudPrefs({ hidden: true });
             } else {
-                setKamidereRuntimeHudPrefs({ hidden: false });
+                setNvRuntimeHudPrefs({ hidden: false });
             }
 
             setMorphState(null);
@@ -618,7 +618,7 @@ function KamidereRuntimeHud() {
         if (!hasActiveTasks && !idleHydrationHandledRef.current) {
             idleHydrationHandledRef.current = true;
             if (!currentPrefs.hidden) {
-                setKamidereRuntimeHudPrefs({ hidden: true });
+                setNvRuntimeHudPrefs({ hidden: true });
             }
         }
 
@@ -634,7 +634,7 @@ function KamidereRuntimeHud() {
                         className={cl("launcher", hasActiveTasks ? "state-active" : "state-idle")}
                         style={dockStyle}
                         onClick={startExpand}
-                        aria-label="Open Kamidere runtime tools"
+                        aria-label="Open Nv runtime tools"
                     >
                         <LauncherIcon spinning={hasActiveTasks} />
                     </button>
@@ -657,77 +657,77 @@ function KamidereRuntimeHud() {
                     style={getMorphGhostInlineStyle(morphState)}
                 />
             )}
-        <div
-            ref={hudRef}
-            className={cl(
-                "hud",
-                isEmpty && "hud-empty",
-                hasActiveTasks ? "state-active" : "state-idle",
-                (dragging || resizing) && "hud-interacting",
-                morphState?.mode === "collapse" && "hud-collapsing",
-            )}
-            style={style}
-        >
             <div
-                className={cl("header", dragging && "header-dragging")}
-                onPointerDown={startDrag}
+                ref={hudRef}
+                className={cl(
+                    "hud",
+                    isEmpty && "hud-empty",
+                    hasActiveTasks ? "state-active" : "state-idle",
+                    (dragging || resizing) && "hud-interacting",
+                    morphState?.mode === "collapse" && "hud-collapsing",
+                )}
+                style={style}
             >
-                <div className={cl("title-row")}>
-                    <span className={cl("title-dot")} />
-                    <div className={cl("title")}>Runtime</div>
+                <div
+                    className={cl("header", dragging && "header-dragging")}
+                    onPointerDown={startDrag}
+                >
+                    <div className={cl("title-row")}>
+                        <span className={cl("title-dot")} />
+                        <div className={cl("title")}>Runtime</div>
+                    </div>
+
+                    <div className={cl("header-actions")}>
+                        {tasks.length > TASKS_PER_PAGE && (
+                            <>
+                                <button
+                                    type="button"
+                                    className={cl("header-button")}
+                                    disabled={page <= 0}
+                                    onClick={event => {
+                                        event.stopPropagation();
+                                        setNvRuntimeHudPrefs({ page: Math.max(0, page - 1) });
+                                    }}
+                                    aria-label="Previous active tools"
+                                >
+                                    <ChevronIcon direction="left" />
+                                </button>
+                                <button
+                                    type="button"
+                                    className={cl("header-button")}
+                                    disabled={page >= maxPage}
+                                    onClick={event => {
+                                        event.stopPropagation();
+                                        setNvRuntimeHudPrefs({ page: Math.min(maxPage, page + 1) });
+                                    }}
+                                    aria-label="Next active tools"
+                                >
+                                    <ChevronIcon direction="right" />
+                                </button>
+                            </>
+                        )}
+                        <button
+                            type="button"
+                            className={cl("header-button")}
+                            onClick={event => {
+                                event.stopPropagation();
+                                startCollapse();
+                            }}
+                            aria-label="Hide runtime tools"
+                        >
+                            <CloseIcon />
+                        </button>
+                    </div>
                 </div>
 
-                <div className={cl("header-actions")}>
-                    {tasks.length > TASKS_PER_PAGE && (
-                        <>
-                            <button
-                                type="button"
-                                className={cl("header-button")}
-                                disabled={page <= 0}
-                                onClick={event => {
-                                    event.stopPropagation();
-                                    setKamidereRuntimeHudPrefs({ page: Math.max(0, page - 1) });
-                                }}
-                                aria-label="Previous active tools"
-                            >
-                                <ChevronIcon direction="left" />
-                            </button>
-                            <button
-                                type="button"
-                                className={cl("header-button")}
-                                disabled={page >= maxPage}
-                                onClick={event => {
-                                    event.stopPropagation();
-                                    setKamidereRuntimeHudPrefs({ page: Math.min(maxPage, page + 1) });
-                                }}
-                                aria-label="Next active tools"
-                            >
-                                <ChevronIcon direction="right" />
-                            </button>
-                        </>
-                    )}
-                    <button
-                        type="button"
-                        className={cl("header-button")}
-                        onClick={event => {
-                            event.stopPropagation();
-                            startCollapse();
-                        }}
-                        aria-label="Hide runtime tools"
-                    >
-                        <CloseIcon />
-                    </button>
+                <div className={cl("task-row")}>
+                    {visibleTasks.length > 0
+                        ? visibleTasks.map(task => <TaskCard key={task.id} task={task} animate={!suppressTaskEntrance} />)
+                        : <EmptyStateCard />}
                 </div>
-            </div>
 
-            <div className={cl("task-row")}>
-                {visibleTasks.length > 0
-                    ? visibleTasks.map(task => <TaskCard key={task.id} task={task} animate={!suppressTaskEntrance} />)
-                    : <EmptyStateCard />}
+                <div className={cl("resize-edge", "resize-edge-right")} onPointerDown={startResize} />
             </div>
-
-            <div className={cl("resize-edge", "resize-edge-right")} onPointerDown={startResize} />
-        </div>
         </div>
     );
 }

@@ -22,7 +22,7 @@ import {
     clearHydratedGuildSnapshots,
     type GuildHydrationSnapshot,
     listHydratedGuildSnapshots,
-} from "@shared/kamidere/memberHydrator";
+} from "@shared/nv/memberHydrator";
 import { classNameFactory } from "@utils/css";
 import { openUserProfile } from "@utils/discord";
 import { Margins } from "@utils/margins";
@@ -609,11 +609,11 @@ function MutualScannerTab() {
     ) as Map<string, number | null>;
     const hydrationSnapshotMap = React.useMemo(() =>
         new Map(hydrationSnapshots.map(snapshot => [snapshot.guildId, snapshot])),
-    [hydrationSnapshots]);
+        [hydrationSnapshots]);
 
     const selectedGuilds = React.useMemo(() =>
         guildOptions.filter(option => data.config.selectedGuildIds.includes(option.id)),
-    [data.config.selectedGuildIds, guildOptions]);
+        [data.config.selectedGuildIds, guildOptions]);
     const filteredGuildOptions = React.useMemo(() => {
         const query = guildSearch.trim().toLowerCase();
         if (!query) return guildOptions;
@@ -806,11 +806,11 @@ function MutualScannerTab() {
         manualWarmupHideTimerRef.current = window.setTimeout(() => {
             setIsManualWarmupVisible(false);
 
-        manualWarmupCleanupTimerRef.current = window.setTimeout(() => {
-            setRenderedManualWarmupProgress(null);
-        }, SCAN_STATUS_TRANSITION_MS);
-    }, MANUAL_WARMUP_HIDE_DELAY_MS);
-}, [clearManualWarmupTimers, isManualWarmupRunning, manualWarmupProgress]);
+            manualWarmupCleanupTimerRef.current = window.setTimeout(() => {
+                setRenderedManualWarmupProgress(null);
+            }, SCAN_STATUS_TRANSITION_MS);
+        }, MANUAL_WARMUP_HIDE_DELAY_MS);
+    }, [clearManualWarmupTimers, isManualWarmupRunning, manualWarmupProgress]);
 
     const refreshHydrationSnapshots = React.useCallback(async () => {
         if (!currentUserId) {
@@ -1033,473 +1033,473 @@ function MutualScannerTab() {
     return (
         <SettingsTab>
             <div className={cl("shell")}>
-            <SpecialCard
-                title="Mutual Scanner"
-                subtitle="Any-mutual sweep"
-                description={`Select the servers you want to inspect and ${BRAND_NAME} will locally scan cached members to find profiles that share at least one mutual friend with your account.`}
-                cardImage={BRAND_ICON_DATA_URL}
-                backgroundImage={HERO_BACKGROUND}
-                backgroundColor="#23211a"
-            >
-                <div className={cl("hero-metrics")}>
-                    <MetricTag icon={<LinkIcon width={14} height={14} />} label="Match mode" value="Any mutual" />
-                    <MetricTag icon={<FolderIcon width={14} height={14} />} label="Selected servers" value={String(selectedGuilds.length)} />
-                    <MetricTag icon={<ClockIcon width={14} height={14} />} label="Saved runs" value={String(data.runs.length)} />
-                </div>
-            </SpecialCard>
+                <SpecialCard
+                    title="Mutual Scanner"
+                    subtitle="Any-mutual sweep"
+                    description={`Select the servers you want to inspect and ${BRAND_NAME} will locally scan cached members to find profiles that share at least one mutual friend with your account.`}
+                    cardImage={BRAND_ICON_DATA_URL}
+                    backgroundImage={HERO_BACKGROUND}
+                    backgroundColor="#23211a"
+                >
+                    <div className={cl("hero-metrics")}>
+                        <MetricTag icon={<LinkIcon width={14} height={14} />} label="Match mode" value="Any mutual" />
+                        <MetricTag icon={<FolderIcon width={14} height={14} />} label="Selected servers" value={String(selectedGuilds.length)} />
+                        <MetricTag icon={<ClockIcon width={14} height={14} />} label="Saved runs" value={String(data.runs.length)} />
+                    </div>
+                </SpecialCard>
 
-            <Notice.Info className={Margins.top20} style={{ width: "100%" }}>
-                The scan is local to this client session. It uses your current Discord state, selected guild member caches, and user profile mutual data already accessible to the client. Large servers may take time and not every member is guaranteed to be loaded in cache.
-            </Notice.Info>
+                <Notice.Info className={Margins.top20} style={{ width: "100%" }}>
+                    The scan is local to this client session. It uses your current Discord state, selected guild member caches, and user profile mutual data already accessible to the client. Large servers may take time and not every member is guaranteed to be loaded in cache.
+                </Notice.Info>
 
-            <div className={cl("layout")}>
-                <div className={cl("main-column")}>
-                    <Card className={cl("panel", "panel-shell", "scope-panel")} defaultPadding>
-                        <div className={cl("section-head")}>
-                            <div>
-                                <Heading className={cl("section-title")} tag="h4">Server Scope</Heading>
-                                <Paragraph className={cl("muted-copy")}>Pick the servers whose members should be checked for any mutual friend relationship with your account.</Paragraph>
+                <div className={cl("layout")}>
+                    <div className={cl("main-column")}>
+                        <Card className={cl("panel", "panel-shell", "scope-panel")} defaultPadding>
+                            <div className={cl("section-head")}>
+                                <div>
+                                    <Heading className={cl("section-title")} tag="h4">Server Scope</Heading>
+                                    <Paragraph className={cl("muted-copy")}>Pick the servers whose members should be checked for any mutual friend relationship with your account.</Paragraph>
+                                </div>
+                                <div className={cl("section-actions")}>
+                                    <TextButton variant="secondary" onClick={selectAllVisibleGuilds} disabled={isRunning || isManualWarmupRunning || filteredGuildOptions.length === 0}>Select visible</TextButton>
+                                    <TextButton variant="secondary" onClick={clearGuildSelection} disabled={isRunning || isManualWarmupRunning || data.config.selectedGuildIds.length === 0}>Clear</TextButton>
+                                </div>
                             </div>
-                            <div className={cl("section-actions")}>
-                                <TextButton variant="secondary" onClick={selectAllVisibleGuilds} disabled={isRunning || isManualWarmupRunning || filteredGuildOptions.length === 0}>Select visible</TextButton>
-                                <TextButton variant="secondary" onClick={clearGuildSelection} disabled={isRunning || isManualWarmupRunning || data.config.selectedGuildIds.length === 0}>Clear</TextButton>
-                            </div>
-                        </div>
 
-                        <div className={cl("scope-toolbar")}>
-                            <label className={cl("search-shell", "scope-search")}>
+                            <div className={cl("scope-toolbar")}>
+                                <label className={cl("search-shell", "scope-search")}>
+                                    <MagnifyingGlassIcon className={cl("search-icon")} width={16} height={16} />
+                                    <input
+                                        className={cl("search-input")}
+                                        type="text"
+                                        value={guildSearch}
+                                        placeholder="Filter servers by name or id"
+                                        onChange={event => setGuildSearch(event.currentTarget.value)}
+                                        disabled={isRunning}
+                                        spellCheck={false}
+                                    />
+                                </label>
+
+                                <Button
+                                    variant={isManualWarmupRunning ? "overlayPrimary" : "secondary"}
+                                    size="iconOnly"
+                                    className={cl("scope-toolbar-action", isManualWarmupRunning && "scope-toolbar-action-busy")}
+                                    title={isManualWarmupRunning ? "Cancel manual cache warmup" : "Warm selected servers into cache"}
+                                    aria-label={isManualWarmupRunning ? "Cancel manual cache warmup" : "Warm selected servers into cache"}
+                                    disabled={!isManualWarmupRunning && (isRunning || data.config.selectedGuildIds.length === 0)}
+                                    onClick={triggerManualWarmup}
+                                >
+                                    {isManualWarmupRunning
+                                        ? <RestartIcon className={cl("scope-toolbar-action-icon", "scope-toolbar-action-icon-spinning")} width={16} height={16} />
+                                        : <CloudUploadIcon className={cl("scope-toolbar-action-icon")} width={16} height={16} />}
+                                </Button>
+                            </div>
+
+                            <div className={cl("scope-toolbar-footer")}>
+                                <Paragraph className={cl("muted-copy", "scope-toolbar-status")}>
+                                    {isManualWarmupRunning
+                                        ? manualWarmupStatus ?? "Hydrating selected servers into the local cache."
+                                        : data.config.selectedGuildIds.length > 0
+                                            ? `${data.config.selectedGuildIds.length} server${data.config.selectedGuildIds.length === 1 ? "" : "s"} selected for scan and optional cache warmup.`
+                                            : "Select one or more servers, then start the scan or pre-warm the member cache from the upload button."}
+                                </Paragraph>
+                                <span className={cl("section-chip", "live-chip")}>{data.config.selectedGuildIds.length} selected</span>
+                            </div>
+
+                            <div className={cl("warmup-progress-region", isManualWarmupVisible && "warmup-progress-region-visible")}>
+                                {shouldRenderWarmupProgress && renderedManualWarmupProgress && (
+                                    <Card className={cl("warmup-progress-card")} defaultPadding>
+                                        <div className={cl("section-head", "warmup-progress-head")}>
+                                            <div>
+                                                <HeadingTertiary className={Margins.reset}>Manual Cache Warmup</HeadingTertiary>
+                                                <Paragraph className={cl("muted-copy")}>
+                                                    {renderedManualWarmupProgress.guildLabel} / guild {renderedManualWarmupProgress.guildIndex} of {renderedManualWarmupProgress.totalGuilds}
+                                                </Paragraph>
+                                            </div>
+                                            <span className={cl("section-chip", "live-chip")}>
+                                                {formatManualWarmupState(renderedManualWarmupProgress.state)}
+                                            </span>
+                                        </div>
+
+                                        <div className={cl("progress-copy", "warmup-progress-copy")}>
+                                            <Paragraph className={cl("muted-copy")}>
+                                                {renderedManualWarmupProgress.targetCount != null
+                                                    ? `${renderedManualWarmupProgress.indexedCount} verified / ${renderedManualWarmupProgress.targetCount} target`
+                                                    : `${renderedManualWarmupProgress.indexedCount} verified`}
+                                            </Paragraph>
+                                            <Paragraph className={cl("muted-copy")}>
+                                                {renderedManualWarmupProgress.remainingCount != null
+                                                    ? `${renderedManualWarmupProgress.remainingCount} remaining`
+                                                    : `${renderedManualWarmupProgress.chunksSeen} chunks seen`}
+                                            </Paragraph>
+                                        </div>
+
+                                        <div className={cl("progress-track", "warmup-progress-track")}>
+                                            <div className={cl("progress-fill", "warmup-progress-fill")} style={{ width: `${warmupProgressPercent}%` }} />
+                                        </div>
+
+                                        <div className={cl("run-summary-grid", "warmup-summary-grid")}>
+                                            <span className={cl("badge")}>{renderedManualWarmupProgress.indexedCount} indexed</span>
+                                            {renderedManualWarmupProgress.remainingCount != null && (
+                                                <span className={cl("badge", "quiet")}>{renderedManualWarmupProgress.remainingCount} left</span>
+                                            )}
+                                            {renderedManualWarmupProgress.chunksSeen > 0 && (
+                                                <span className={cl("badge", "quiet")}>{renderedManualWarmupProgress.chunksSeen} chunks</span>
+                                            )}
+                                            <span className={cl("badge", renderedManualWarmupProgress.delta > 0 ? "warn" : "quiet")}>
+                                                +{renderedManualWarmupProgress.delta} hydrated
+                                            </span>
+                                        </div>
+                                    </Card>
+                                )}
+                            </div>
+
+                            <div className={cl("guild-list")}>
+                                {pending && filteredGuildOptions.length === 0 && (
+                                    <>
+                                        <SkeletonCard compact />
+                                        <SkeletonCard compact />
+                                        <SkeletonCard compact />
+                                    </>
+                                )}
+
+                                {filteredGuildOptions.map(option => {
+                                    const selected = data.config.selectedGuildIds.includes(option.id);
+
+                                    return (
+                                        <Card key={option.id} className={cl("guild-card")}>
+                                            <div className={cl("guild-copy")}>
+                                                <div className={cl("guild-title-row")}>
+                                                    {option.iconUrl
+                                                        ? <img className={cl("guild-icon")} src={option.iconUrl} alt="" />
+                                                        : <div className={cl("guild-fallback-icon")}>{option.label.slice(0, 1)}</div>}
+                                                    <div>
+                                                        <HeadingTertiary className={Margins.reset}>{option.label}</HeadingTertiary>
+                                                        <Paragraph className={cl("muted-copy")}>
+                                                            {option.memberCount} cached members / {option.id}
+                                                        </Paragraph>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <Switch checked={selected} disabled={isManualWarmupRunning} onChange={(checked: boolean) => void toggleGuild(option.id, checked)} />
+                                        </Card>
+                                    );
+                                })}
+
+                                {filteredGuildOptions.length === 0 && (
+                                    <div className={cl("empty-inline")}>
+                                        <FolderIcon className={cl("empty-inline-icon")} />
+                                        <Paragraph className={cl("muted-copy")}>No servers match this filter.</Paragraph>
+                                    </div>
+                                )}
+                            </div>
+                        </Card>
+
+                        <Card className={cl("panel", "panel-shell", "live-panel")} defaultPadding>
+                            <div className={cl("section-head")}>
+                                <div>
+                                    <Heading className={cl("section-title")} tag="h4">Live Run</Heading>
+                                    <Paragraph className={cl("muted-copy")}>Run the sweep sequentially, watch matches appear, and stop it at any time.</Paragraph>
+                                </div>
+                                <span className={cl("section-chip")}>{isRunning ? formatProgress(runtimeProgress) : "Idle"}</span>
+                            </div>
+
+                            <div className={cl("filter-surface")}>
+                                <div className={cl("config-grid")}>
+                                    <label className={cl("field")}>
+                                        <span className={cl("field-label")}>Delay between profiles (ms)</span>
+                                        <input
+                                            className={cl("input")}
+                                            type="number"
+                                            min={0}
+                                            max={5000}
+                                            value={data.config.requestDelayMs}
+                                            onChange={event => void updateConfig({ requestDelayMs: clampNumber(Number(event.currentTarget.value) || 0, 0, 5000) })}
+                                            disabled={isRunning}
+                                        />
+                                    </label>
+
+                                    <label className={cl("field")}>
+                                        <span className={cl("field-label")}>Max members per server</span>
+                                        <input
+                                            className={cl("input")}
+                                            type="number"
+                                            min={0}
+                                            max={50000}
+                                            value={data.config.maxMembersPerGuild}
+                                            onChange={event => void updateConfig({ maxMembersPerGuild: clampNumber(Number(event.currentTarget.value) || 0, 0, 50000) })}
+                                            disabled={isRunning}
+                                        />
+                                    </label>
+
+                                    <label className={cl("field")}>
+                                        <span className={cl("field-label")}>Warmup timeout per server (ms)</span>
+                                        <input
+                                            className={cl("input")}
+                                            type="number"
+                                            min={500}
+                                            max={20000}
+                                            value={data.config.warmupTimeoutMs}
+                                            onChange={event => void updateConfig({ warmupTimeoutMs: clampNumber(Number(event.currentTarget.value) || 0, 500, 20000) })}
+                                            disabled={isRunning || !data.config.warmMemberCacheBeforeScan}
+                                        />
+                                    </label>
+
+                                    <label className={cl("field")}>
+                                        <span className={cl("field-label")}>Warmup member budget</span>
+                                        <input
+                                            className={cl("input")}
+                                            type="number"
+                                            min={0}
+                                            max={100000}
+                                            value={data.config.warmupMemberBudget}
+                                            onChange={event => void updateConfig({ warmupMemberBudget: clampNumber(Number(event.currentTarget.value) || 0, 0, 100000) })}
+                                            disabled={isRunning || !data.config.warmMemberCacheBeforeScan}
+                                        />
+                                    </label>
+                                </div>
+
+                                <div className={cl("toggle-grid")}>
+                                    <div className={cl("toggle-row")}>
+                                        <div>
+                                            <HeadingTertiary className={Margins.reset}>Include bots</HeadingTertiary>
+                                            <Paragraph className={cl("muted-copy")}>Leave off if you only care about human accounts.</Paragraph>
+                                        </div>
+                                        <Switch checked={data.config.includeBots} onChange={(checked: boolean) => void updateConfig({ includeBots: checked })} />
+                                    </div>
+
+                                    <div className={cl("toggle-row")}>
+                                        <div>
+                                            <HeadingTertiary className={Margins.reset}>Skip users already in your friends</HeadingTertiary>
+                                            <Paragraph className={cl("muted-copy")}>Useful if you only want new or non-friend candidates.</Paragraph>
+                                        </div>
+                                        <Switch checked={data.config.skipExistingFriends} onChange={(checked: boolean) => void updateConfig({ skipExistingFriends: checked })} />
+                                    </div>
+
+                                    <div className={cl("toggle-row")}>
+                                        <div>
+                                            <HeadingTertiary className={Margins.reset}>Warm member cache before scan</HeadingTertiary>
+                                            <Paragraph className={cl("muted-copy")}>Attempts to expand each selected guild beyond what is already in GuildMemberStore before scanning.</Paragraph>
+                                        </div>
+                                        <Switch checked={data.config.warmMemberCacheBeforeScan} onChange={(checked: boolean) => void updateConfig({ warmMemberCacheBeforeScan: checked })} />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className={cl("run-actions-row")}>
+                                <Button
+                                    variant="positive"
+                                    size="small"
+                                    className={cl("primary-action")}
+                                    disabled={isRunning || isManualWarmupRunning || data.config.selectedGuildIds.length === 0}
+                                    onClick={startRun}
+                                >
+                                    <MagnifyingGlassIcon width={14} height={14} />
+                                    <span>Start Scan</span>
+                                </Button>
+                                <Button
+                                    variant="dangerPrimary"
+                                    size="small"
+                                    disabled={!isRunning}
+                                    onClick={cancelRun}
+                                >
+                                    Cancel
+                                </Button>
+                                <TextButton variant="danger" disabled={data.runs.length === 0 || isRunning} onClick={clearHistory}>
+                                    Clear History
+                                </TextButton>
+                            </div>
+
+                            <div
+                                className={cl(
+                                    "scan-status-region",
+                                    shouldRenderScanStatus && "scan-status-region-mounted",
+                                    isScanStatusVisible ? "scan-status-region-visible" : "scan-status-region-hidden",
+                                )}
+                            >
+                                {shouldRenderScanStatus && (
+                                    <ScanStatusBanner
+                                        progress={runtimeProgress}
+                                        result={activeScanStatusResult}
+                                        runDuration={runDuration}
+                                    />
+                                )}
+                            </div>
+
+                            <div className={cl("progress-shell")}>
+                                <div className={cl("progress-copy")}>
+                                    <Paragraph className={cl("muted-copy")}>
+                                        {runtimeProgress?.currentLabel
+                                            ? `Current profile: ${runtimeProgress.currentLabel}`
+                                            : "No active profile."}
+                                    </Paragraph>
+                                    <Paragraph className={cl("muted-copy")}>
+                                        {runStartedAt ? `Runtime ${formatDurationMs(runDuration)}` : "Waiting for a new run."}
+                                    </Paragraph>
+                                </div>
+                                <div className={cl("progress-track")}>
+                                    <div className={cl("progress-fill")} style={{ width: `${progressPercent}%` }} />
+                                </div>
+                            </div>
+
+                            <div className={cl("run-summary-grid")}>
+                                <span className={cl("badge")}>{runtimeProgress?.matchedCount ?? runtimeMatches.length} matches</span>
+                                <span className={cl("badge", "quiet")}>{runtimeProgress?.scannedCount ?? 0} scanned</span>
+                                <span className={cl("badge", "quiet")}>{runtimeProgress?.profileErrors ?? 0} errors</span>
+                                {(runtimeProgress?.countOnlyMatches ?? 0) > 0 && <span className={cl("badge", "warn")}>{runtimeProgress?.countOnlyMatches} count-only</span>}
+                            </div>
+
+                            <div className={cl("live-results")}>
+                                {isRunning && liveRuntimeMatches.length === 0 && (
+                                    <>
+                                        <SkeletonCard />
+                                        <SkeletonCard />
+                                        <SkeletonCard compact />
+                                    </>
+                                )}
+
+                                {liveRuntimeMatches.length === 0 && !isRunning && (
+                                    <Card className={cl("empty-card")} defaultPadding>
+                                        <MagnifyingGlassIcon className={cl("empty-icon")} />
+                                        <HeadingTertiary>Run a scan to populate live matches</HeadingTertiary>
+                                        <Paragraph className={cl("muted-copy")}>Results appear here as soon as the scanner finds profiles with any mutual friend relationship, then fade out after 30s while the saved run stays in history.</Paragraph>
+                                    </Card>
+                                )}
+
+                                {liveRuntimeMatches.map((entry, index) => (
+                                    <LiveMatchRow
+                                        key={entry.userId}
+                                        match={entry.match}
+                                        index={index}
+                                        exiting={entry.exiting}
+                                    />
+                                ))}
+                            </div>
+
+                            {runtimeResult?.status === "completed" && runtimeResult.stats.countOnlyMatches > 0 && (
+                                <Notice.Info className={cl("inline-notice")}>
+                                    {runtimeResult.stats.countOnlyMatches} matches were accepted from mutual-friend count data only. Those are valid `has mutual` hits, but the client did not expose the resolved mutual-friend names for them.
+                                </Notice.Info>
+                            )}
+
+                            {data.config.warmMemberCacheBeforeScan && (
+                                <Notice.Info className={cl("inline-notice")}>
+                                    Warmup runs one guild at a time through the shared hydration service. It can reuse a temporary local member index from recent runs, stops on timeout, or earlier if the per-guild member budget is reached. Set the budget to 0 for no member cap.
+                                </Notice.Info>
+                            )}
+                        </Card>
+                    </div>
+
+                    <div className={cl("side-column")}>
+                        <Card className={cl("panel", "panel-shell", "history-panel")} defaultPadding>
+                            <div className={cl("section-head")}>
+                                <div>
+                                    <Heading className={cl("section-title")} tag="h4">Run History</Heading>
+                                    <Paragraph className={cl("muted-copy")}>Saved locally per account on this device.</Paragraph>
+                                </div>
+                                <span className={cl("section-chip")}>{data.runs.length} runs</span>
+                            </div>
+
+                            <label className={cl("search-shell")}>
                                 <MagnifyingGlassIcon className={cl("search-icon")} width={16} height={16} />
                                 <input
                                     className={cl("search-input")}
                                     type="text"
-                                    value={guildSearch}
-                                    placeholder="Filter servers by name or id"
-                                    onChange={event => setGuildSearch(event.currentTarget.value)}
+                                    value={historySearch}
+                                    placeholder="Search history by scope, user, or guild"
+                                    onChange={event => setHistorySearch(event.currentTarget.value)}
                                     disabled={isRunning}
                                     spellCheck={false}
                                 />
                             </label>
 
-                            <Button
-                                variant={isManualWarmupRunning ? "overlayPrimary" : "secondary"}
-                                size="iconOnly"
-                                className={cl("scope-toolbar-action", isManualWarmupRunning && "scope-toolbar-action-busy")}
-                                title={isManualWarmupRunning ? "Cancel manual cache warmup" : "Warm selected servers into cache"}
-                                aria-label={isManualWarmupRunning ? "Cancel manual cache warmup" : "Warm selected servers into cache"}
-                                disabled={!isManualWarmupRunning && (isRunning || data.config.selectedGuildIds.length === 0)}
-                                onClick={triggerManualWarmup}
-                            >
-                                {isManualWarmupRunning
-                                    ? <RestartIcon className={cl("scope-toolbar-action-icon", "scope-toolbar-action-icon-spinning")} width={16} height={16} />
-                                    : <CloudUploadIcon className={cl("scope-toolbar-action-icon")} width={16} height={16} />}
-                            </Button>
-                        </div>
+                            <div className={cl("history-list")}>
+                                {pending && (
+                                    <>
+                                        <SkeletonCard />
+                                        <SkeletonCard compact />
+                                    </>
+                                )}
 
-                        <div className={cl("scope-toolbar-footer")}>
-                            <Paragraph className={cl("muted-copy", "scope-toolbar-status")}>
-                                {isManualWarmupRunning
-                                    ? manualWarmupStatus ?? "Hydrating selected servers into the local cache."
-                                    : data.config.selectedGuildIds.length > 0
-                                        ? `${data.config.selectedGuildIds.length} server${data.config.selectedGuildIds.length === 1 ? "" : "s"} selected for scan and optional cache warmup.`
-                                        : "Select one or more servers, then start the scan or pre-warm the member cache from the upload button."}
-                            </Paragraph>
-                            <span className={cl("section-chip", "live-chip")}>{data.config.selectedGuildIds.length} selected</span>
-                        </div>
+                                {!pending && shouldShowRuntimeHistoryPreview && runStartedAt && runtime.scan.scopeLabel && (
+                                    <RuntimePreviewRunCard
+                                        scopeLabel={runtime.scan.scopeLabel}
+                                        startedAt={runStartedAt}
+                                        progress={runtimeProgress}
+                                        matches={filteredRuntimeHistoryMatches}
+                                    />
+                                )}
 
-                        <div className={cl("warmup-progress-region", isManualWarmupVisible && "warmup-progress-region-visible")}>
-                            {shouldRenderWarmupProgress && renderedManualWarmupProgress && (
-                                <Card className={cl("warmup-progress-card")} defaultPadding>
-                                    <div className={cl("section-head", "warmup-progress-head")}>
-                                        <div>
-                                            <HeadingTertiary className={Margins.reset}>Manual Cache Warmup</HeadingTertiary>
-                                            <Paragraph className={cl("muted-copy")}>
-                                                {renderedManualWarmupProgress.guildLabel} / guild {renderedManualWarmupProgress.guildIndex} of {renderedManualWarmupProgress.totalGuilds}
-                                            </Paragraph>
-                                        </div>
-                                        <span className={cl("section-chip", "live-chip")}>
-                                            {formatManualWarmupState(renderedManualWarmupProgress.state)}
-                                        </span>
-                                    </div>
-
-                                    <div className={cl("progress-copy", "warmup-progress-copy")}>
-                                        <Paragraph className={cl("muted-copy")}>
-                                            {renderedManualWarmupProgress.targetCount != null
-                                                ? `${renderedManualWarmupProgress.indexedCount} verified / ${renderedManualWarmupProgress.targetCount} target`
-                                                : `${renderedManualWarmupProgress.indexedCount} verified`}
-                                        </Paragraph>
-                                        <Paragraph className={cl("muted-copy")}>
-                                            {renderedManualWarmupProgress.remainingCount != null
-                                                ? `${renderedManualWarmupProgress.remainingCount} remaining`
-                                                : `${renderedManualWarmupProgress.chunksSeen} chunks seen`}
-                                        </Paragraph>
-                                    </div>
-
-                                    <div className={cl("progress-track", "warmup-progress-track")}>
-                                        <div className={cl("progress-fill", "warmup-progress-fill")} style={{ width: `${warmupProgressPercent}%` }} />
-                                    </div>
-
-                                    <div className={cl("run-summary-grid", "warmup-summary-grid")}>
-                                        <span className={cl("badge")}>{renderedManualWarmupProgress.indexedCount} indexed</span>
-                                        {renderedManualWarmupProgress.remainingCount != null && (
-                                            <span className={cl("badge", "quiet")}>{renderedManualWarmupProgress.remainingCount} left</span>
-                                        )}
-                                        {renderedManualWarmupProgress.chunksSeen > 0 && (
-                                            <span className={cl("badge", "quiet")}>{renderedManualWarmupProgress.chunksSeen} chunks</span>
-                                        )}
-                                        <span className={cl("badge", renderedManualWarmupProgress.delta > 0 ? "warn" : "quiet")}>
-                                            +{renderedManualWarmupProgress.delta} hydrated
-                                        </span>
-                                    </div>
-                                </Card>
-                            )}
-                        </div>
-
-                        <div className={cl("guild-list")}>
-                            {pending && filteredGuildOptions.length === 0 && (
-                                <>
-                                    <SkeletonCard compact />
-                                    <SkeletonCard compact />
-                                    <SkeletonCard compact />
-                                </>
-                            )}
-
-                            {filteredGuildOptions.map(option => {
-                                const selected = data.config.selectedGuildIds.includes(option.id);
-
-                                return (
-                                    <Card key={option.id} className={cl("guild-card")}>
-                                        <div className={cl("guild-copy")}>
-                                            <div className={cl("guild-title-row")}>
-                                                {option.iconUrl
-                                                    ? <img className={cl("guild-icon")} src={option.iconUrl} alt="" />
-                                                    : <div className={cl("guild-fallback-icon")}>{option.label.slice(0, 1)}</div>}
-                                                <div>
-                                                    <HeadingTertiary className={Margins.reset}>{option.label}</HeadingTertiary>
-                                                    <Paragraph className={cl("muted-copy")}>
-                                                        {option.memberCount} cached members / {option.id}
-                                                    </Paragraph>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <Switch checked={selected} disabled={isManualWarmupRunning} onChange={(checked: boolean) => void toggleGuild(option.id, checked)} />
+                                {!pending && filteredRuns.length === 0 && !shouldShowRuntimeHistoryPreview && (
+                                    <Card className={cl("empty-card")} defaultPadding>
+                                        <LogIcon className={cl("empty-icon")} />
+                                        <HeadingTertiary>No saved runs match this filter</HeadingTertiary>
+                                        <Paragraph className={cl("muted-copy")}>Broaden the search or run a new scan to build a stronger local history.</Paragraph>
                                     </Card>
-                                );
-                            })}
+                                )}
 
-                            {filteredGuildOptions.length === 0 && (
-                                <div className={cl("empty-inline")}>
-                                    <FolderIcon className={cl("empty-inline-icon")} />
-                                    <Paragraph className={cl("muted-copy")}>No servers match this filter.</Paragraph>
-                                </div>
-                            )}
-                        </div>
-                    </Card>
-
-                    <Card className={cl("panel", "panel-shell", "live-panel")} defaultPadding>
-                        <div className={cl("section-head")}>
-                            <div>
-                                <Heading className={cl("section-title")} tag="h4">Live Run</Heading>
-                                <Paragraph className={cl("muted-copy")}>Run the sweep sequentially, watch matches appear, and stop it at any time.</Paragraph>
+                                {filteredRuns.map(run => (
+                                    <RunCard
+                                        key={run.id}
+                                        run={run}
+                                        comparison={runComparisons.get(run.id) ?? buildMutualScannerRunComparison(run, null)}
+                                        onRemove={() => void removeMutualScannerRun(currentUserId, run.id)}
+                                    />
+                                ))}
                             </div>
-                            <span className={cl("section-chip")}>{isRunning ? formatProgress(runtimeProgress) : "Idle"}</span>
-                        </div>
+                        </Card>
 
-                        <div className={cl("filter-surface")}>
-                            <div className={cl("config-grid")}>
-                            <label className={cl("field")}>
-                                <span className={cl("field-label")}>Delay between profiles (ms)</span>
-                                <input
-                                    className={cl("input")}
-                                    type="number"
-                                    min={0}
-                                    max={5000}
-                                    value={data.config.requestDelayMs}
-                                    onChange={event => void updateConfig({ requestDelayMs: clampNumber(Number(event.currentTarget.value) || 0, 0, 5000) })}
-                                    disabled={isRunning}
-                                />
-                            </label>
-
-                            <label className={cl("field")}>
-                                <span className={cl("field-label")}>Max members per server</span>
-                                <input
-                                    className={cl("input")}
-                                    type="number"
-                                    min={0}
-                                    max={50000}
-                                    value={data.config.maxMembersPerGuild}
-                                    onChange={event => void updateConfig({ maxMembersPerGuild: clampNumber(Number(event.currentTarget.value) || 0, 0, 50000) })}
-                                    disabled={isRunning}
-                                />
-                            </label>
-
-                            <label className={cl("field")}>
-                                <span className={cl("field-label")}>Warmup timeout per server (ms)</span>
-                                <input
-                                    className={cl("input")}
-                                    type="number"
-                                    min={500}
-                                    max={20000}
-                                    value={data.config.warmupTimeoutMs}
-                                    onChange={event => void updateConfig({ warmupTimeoutMs: clampNumber(Number(event.currentTarget.value) || 0, 500, 20000) })}
-                                    disabled={isRunning || !data.config.warmMemberCacheBeforeScan}
-                                />
-                            </label>
-
-                            <label className={cl("field")}>
-                                <span className={cl("field-label")}>Warmup member budget</span>
-                                <input
-                                    className={cl("input")}
-                                    type="number"
-                                    min={0}
-                                    max={100000}
-                                    value={data.config.warmupMemberBudget}
-                                    onChange={event => void updateConfig({ warmupMemberBudget: clampNumber(Number(event.currentTarget.value) || 0, 0, 100000) })}
-                                    disabled={isRunning || !data.config.warmMemberCacheBeforeScan}
-                                />
-                            </label>
-                            </div>
-
-                            <div className={cl("toggle-grid")}>
-                                <div className={cl("toggle-row")}>
-                                    <div>
-                                        <HeadingTertiary className={Margins.reset}>Include bots</HeadingTertiary>
-                                        <Paragraph className={cl("muted-copy")}>Leave off if you only care about human accounts.</Paragraph>
-                                    </div>
-                                    <Switch checked={data.config.includeBots} onChange={(checked: boolean) => void updateConfig({ includeBots: checked })} />
+                        <Card className={cl("panel", "panel-shell", "cache-panel")} defaultPadding>
+                            <div className={cl("section-head")}>
+                                <div>
+                                    <Heading className={cl("section-title")} tag="h4">Hydration Cache</Heading>
+                                    <Paragraph className={cl("muted-copy")}>Temporary member-index snapshots reused by the shared hydration service.</Paragraph>
                                 </div>
-
-                                <div className={cl("toggle-row")}>
-                                    <div>
-                                        <HeadingTertiary className={Margins.reset}>Skip users already in your friends</HeadingTertiary>
-                                        <Paragraph className={cl("muted-copy")}>Useful if you only want new or non-friend candidates.</Paragraph>
-                                    </div>
-                                    <Switch checked={data.config.skipExistingFriends} onChange={(checked: boolean) => void updateConfig({ skipExistingFriends: checked })} />
-                                </div>
-
-                                <div className={cl("toggle-row")}>
-                                    <div>
-                                        <HeadingTertiary className={Margins.reset}>Warm member cache before scan</HeadingTertiary>
-                                        <Paragraph className={cl("muted-copy")}>Attempts to expand each selected guild beyond what is already in GuildMemberStore before scanning.</Paragraph>
-                                    </div>
-                                    <Switch checked={data.config.warmMemberCacheBeforeScan} onChange={(checked: boolean) => void updateConfig({ warmMemberCacheBeforeScan: checked })} />
+                                <div className={cl("section-actions")}>
+                                    <span className={cl("section-chip")}>{hydrationSnapshots.length} cached</span>
+                                    <TextButton
+                                        variant="secondary"
+                                        disabled={retryGuildIds.length === 0 || hydrationPending || isManualWarmupRunning || isRunning}
+                                        onClick={retryWeakGuilds}
+                                    >
+                                        Retry Weak Guilds
+                                    </TextButton>
+                                    <TextButton variant="danger" disabled={hydrationSnapshots.length === 0 || hydrationPending} onClick={clearHydrationCache}>Clear All</TextButton>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className={cl("run-actions-row")}>
-                            <Button
-                                variant="positive"
-                                size="small"
-                                className={cl("primary-action")}
-                                disabled={isRunning || isManualWarmupRunning || data.config.selectedGuildIds.length === 0}
-                                onClick={startRun}
-                            >
-                                <MagnifyingGlassIcon width={14} height={14} />
-                                <span>Start Scan</span>
-                            </Button>
-                            <Button
-                                variant="dangerPrimary"
-                                size="small"
-                                disabled={!isRunning}
-                                onClick={cancelRun}
-                            >
-                                Cancel
-                            </Button>
-                            <TextButton variant="danger" disabled={data.runs.length === 0 || isRunning} onClick={clearHistory}>
-                                Clear History
-                            </TextButton>
-                        </div>
+                            <div className={cl("history-list", "cache-list")}>
+                                {hydrationPending && (
+                                    <>
+                                        <SkeletonCard compact />
+                                        <SkeletonCard compact />
+                                    </>
+                                )}
 
-                        <div
-                            className={cl(
-                                "scan-status-region",
-                                shouldRenderScanStatus && "scan-status-region-mounted",
-                                isScanStatusVisible ? "scan-status-region-visible" : "scan-status-region-hidden",
-                            )}
-                        >
-                            {shouldRenderScanStatus && (
-                                <ScanStatusBanner
-                                    progress={runtimeProgress}
-                                    result={activeScanStatusResult}
-                                    runDuration={runDuration}
-                                />
-                            )}
-                        </div>
+                                {!hydrationPending && hydrationSnapshots.length === 0 && (
+                                    <Card className={cl("empty-card")} defaultPadding>
+                                        <CloudUploadIcon className={cl("empty-icon")} />
+                                        <HeadingTertiary>No hydration snapshots yet</HeadingTertiary>
+                                        <Paragraph className={cl("muted-copy")}>Run a warmup-enabled scan and the selected guilds will start building temporary local member indexes here.</Paragraph>
+                                    </Card>
+                                )}
 
-                        <div className={cl("progress-shell")}>
-                            <div className={cl("progress-copy")}>
-                                <Paragraph className={cl("muted-copy")}>
-                                    {runtimeProgress?.currentLabel
-                                        ? `Current profile: ${runtimeProgress.currentLabel}`
-                                        : "No active profile."}
-                                </Paragraph>
-                                <Paragraph className={cl("muted-copy")}>
-                                    {runStartedAt ? `Runtime ${formatDurationMs(runDuration)}` : "Waiting for a new run."}
-                                </Paragraph>
+                                {!hydrationPending && hydrationSnapshots.map(snapshot => (
+                                    <HydrationCacheRow
+                                        key={`${snapshot.guildId}:${snapshot.warmedAt}`}
+                                        snapshot={snapshot}
+                                        quality={getHydrationSnapshotQuality(snapshot, guildTargetCountMap.get(snapshot.guildId) ?? null)}
+                                        targetCount={guildTargetCountMap.get(snapshot.guildId) ?? null}
+                                        onRewarm={() => rewarmGuild(snapshot.guildId)}
+                                        rewarmDisabled={isManualWarmupRunning || isRunning}
+                                        onClear={() => void clearHydrationCacheEntry(snapshot.guildId)}
+                                    />
+                                ))}
                             </div>
-                            <div className={cl("progress-track")}>
-                                <div className={cl("progress-fill")} style={{ width: `${progressPercent}%` }} />
-                            </div>
-                        </div>
-
-                        <div className={cl("run-summary-grid")}>
-                            <span className={cl("badge")}>{runtimeProgress?.matchedCount ?? runtimeMatches.length} matches</span>
-                            <span className={cl("badge", "quiet")}>{runtimeProgress?.scannedCount ?? 0} scanned</span>
-                            <span className={cl("badge", "quiet")}>{runtimeProgress?.profileErrors ?? 0} errors</span>
-                            {(runtimeProgress?.countOnlyMatches ?? 0) > 0 && <span className={cl("badge", "warn")}>{runtimeProgress?.countOnlyMatches} count-only</span>}
-                        </div>
-
-                        <div className={cl("live-results")}>
-                            {isRunning && liveRuntimeMatches.length === 0 && (
-                                <>
-                                    <SkeletonCard />
-                                    <SkeletonCard />
-                                    <SkeletonCard compact />
-                                </>
-                            )}
-
-                            {liveRuntimeMatches.length === 0 && !isRunning && (
-                                <Card className={cl("empty-card")} defaultPadding>
-                                    <MagnifyingGlassIcon className={cl("empty-icon")} />
-                                    <HeadingTertiary>Run a scan to populate live matches</HeadingTertiary>
-                                    <Paragraph className={cl("muted-copy")}>Results appear here as soon as the scanner finds profiles with any mutual friend relationship, then fade out after 30s while the saved run stays in history.</Paragraph>
-                                </Card>
-                            )}
-
-                            {liveRuntimeMatches.map((entry, index) => (
-                                <LiveMatchRow
-                                    key={entry.userId}
-                                    match={entry.match}
-                                    index={index}
-                                    exiting={entry.exiting}
-                                />
-                            ))}
-                        </div>
-
-                        {runtimeResult?.status === "completed" && runtimeResult.stats.countOnlyMatches > 0 && (
-                            <Notice.Info className={cl("inline-notice")}>
-                                {runtimeResult.stats.countOnlyMatches} matches were accepted from mutual-friend count data only. Those are valid `has mutual` hits, but the client did not expose the resolved mutual-friend names for them.
-                            </Notice.Info>
-                        )}
-
-                        {data.config.warmMemberCacheBeforeScan && (
-                            <Notice.Info className={cl("inline-notice")}>
-                                Warmup runs one guild at a time through the shared hydration service. It can reuse a temporary local member index from recent runs, stops on timeout, or earlier if the per-guild member budget is reached. Set the budget to 0 for no member cap.
-                            </Notice.Info>
-                        )}
-                    </Card>
+                        </Card>
+                    </div>
                 </div>
-
-                <div className={cl("side-column")}>
-                    <Card className={cl("panel", "panel-shell", "history-panel")} defaultPadding>
-                        <div className={cl("section-head")}>
-                            <div>
-                                <Heading className={cl("section-title")} tag="h4">Run History</Heading>
-                                <Paragraph className={cl("muted-copy")}>Saved locally per account on this device.</Paragraph>
-                            </div>
-                            <span className={cl("section-chip")}>{data.runs.length} runs</span>
-                        </div>
-
-                        <label className={cl("search-shell")}>
-                            <MagnifyingGlassIcon className={cl("search-icon")} width={16} height={16} />
-                            <input
-                                className={cl("search-input")}
-                                type="text"
-                                value={historySearch}
-                                placeholder="Search history by scope, user, or guild"
-                                onChange={event => setHistorySearch(event.currentTarget.value)}
-                                disabled={isRunning}
-                                spellCheck={false}
-                            />
-                        </label>
-
-                        <div className={cl("history-list")}>
-                            {pending && (
-                                <>
-                                    <SkeletonCard />
-                                    <SkeletonCard compact />
-                                </>
-                            )}
-
-                            {!pending && shouldShowRuntimeHistoryPreview && runStartedAt && runtime.scan.scopeLabel && (
-                                <RuntimePreviewRunCard
-                                    scopeLabel={runtime.scan.scopeLabel}
-                                    startedAt={runStartedAt}
-                                    progress={runtimeProgress}
-                                    matches={filteredRuntimeHistoryMatches}
-                                />
-                            )}
-
-                            {!pending && filteredRuns.length === 0 && !shouldShowRuntimeHistoryPreview && (
-                                <Card className={cl("empty-card")} defaultPadding>
-                                    <LogIcon className={cl("empty-icon")} />
-                                    <HeadingTertiary>No saved runs match this filter</HeadingTertiary>
-                                    <Paragraph className={cl("muted-copy")}>Broaden the search or run a new scan to build a stronger local history.</Paragraph>
-                                </Card>
-                            )}
-
-                            {filteredRuns.map(run => (
-                                <RunCard
-                                    key={run.id}
-                                    run={run}
-                                    comparison={runComparisons.get(run.id) ?? buildMutualScannerRunComparison(run, null)}
-                                    onRemove={() => void removeMutualScannerRun(currentUserId, run.id)}
-                                />
-                            ))}
-                        </div>
-                    </Card>
-
-                    <Card className={cl("panel", "panel-shell", "cache-panel")} defaultPadding>
-                        <div className={cl("section-head")}>
-                            <div>
-                                <Heading className={cl("section-title")} tag="h4">Hydration Cache</Heading>
-                                <Paragraph className={cl("muted-copy")}>Temporary member-index snapshots reused by the shared hydration service.</Paragraph>
-                            </div>
-                            <div className={cl("section-actions")}>
-                                <span className={cl("section-chip")}>{hydrationSnapshots.length} cached</span>
-                                <TextButton
-                                    variant="secondary"
-                                    disabled={retryGuildIds.length === 0 || hydrationPending || isManualWarmupRunning || isRunning}
-                                    onClick={retryWeakGuilds}
-                                >
-                                    Retry Weak Guilds
-                                </TextButton>
-                                <TextButton variant="danger" disabled={hydrationSnapshots.length === 0 || hydrationPending} onClick={clearHydrationCache}>Clear All</TextButton>
-                            </div>
-                        </div>
-
-                        <div className={cl("history-list", "cache-list")}>
-                            {hydrationPending && (
-                                <>
-                                    <SkeletonCard compact />
-                                    <SkeletonCard compact />
-                                </>
-                            )}
-
-                            {!hydrationPending && hydrationSnapshots.length === 0 && (
-                                <Card className={cl("empty-card")} defaultPadding>
-                                    <CloudUploadIcon className={cl("empty-icon")} />
-                                    <HeadingTertiary>No hydration snapshots yet</HeadingTertiary>
-                                    <Paragraph className={cl("muted-copy")}>Run a warmup-enabled scan and the selected guilds will start building temporary local member indexes here.</Paragraph>
-                                </Card>
-                            )}
-
-                            {!hydrationPending && hydrationSnapshots.map(snapshot => (
-                                <HydrationCacheRow
-                                    key={`${snapshot.guildId}:${snapshot.warmedAt}`}
-                                    snapshot={snapshot}
-                                    quality={getHydrationSnapshotQuality(snapshot, guildTargetCountMap.get(snapshot.guildId) ?? null)}
-                                    targetCount={guildTargetCountMap.get(snapshot.guildId) ?? null}
-                                    onRewarm={() => rewarmGuild(snapshot.guildId)}
-                                    rewarmDisabled={isManualWarmupRunning || isRunning}
-                                    onClear={() => void clearHydrationCacheEntry(snapshot.guildId)}
-                                />
-                            ))}
-                        </div>
-                    </Card>
-                </div>
-            </div>
             </div>
         </SettingsTab>
     );

@@ -4,13 +4,13 @@ import { sleep } from "@utils/misc";
 import { findByPropsLazy } from "@webpack";
 import { FluxDispatcher, GuildMemberStore, SnowflakeUtils } from "@webpack/common";
 
-const logger = new Logger("KamidereMemberHydrator");
+const logger = new Logger("NvMemberHydrator");
 const GuildActions = findByPropsLazy("requestMembers", "requestMembersById") as {
     requestMembers?: (guildId: string, query?: string, limit?: number, includePresences?: boolean) => void;
     requestMembersById?: (guildId: string, userIds: string[], includePresences?: boolean) => void;
 };
 
-const STORAGE_PREFIX = "kamidere-hydration-index:v1:";
+const STORAGE_PREFIX = "nv-hydration-index:v1:";
 const DEFAULT_INDEX_TTL_MS = 3 * 24 * 60 * 60 * 1000;
 const WARMUP_QUERY_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789_.-";
 const WARMUP_QUERY_FANOUT = [
@@ -335,7 +335,7 @@ export async function listHydratedGuildSnapshots(ownerId: string | null) {
         return snapshot ? cloneSnapshot(snapshot) : null;
     }));
 
-        const validSnapshots: GuildHydrationSnapshot[] = [];
+    const validSnapshots: GuildHydrationSnapshot[] = [];
     for (const snapshot of snapshots) {
         if (!snapshot) continue;
         const normalized = normalizeSnapshotRetention(snapshot);

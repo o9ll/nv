@@ -24,7 +24,7 @@ import { RendererSettings } from "./settings";
 import { patchTrayMenu } from "./trayMenu";
 import { IS_VANILLA } from "./utils/constants";
 
-console.log("[Kamidere] Starting up...");
+console.log("[Nv] Starting up...");
 
 // Our injector file at app/index.js
 const injectorPath = require.main!.filename;
@@ -135,7 +135,7 @@ if (!IS_VANILLA) {
         s.set("DANGEROUS_ENABLE_DEVTOOLS_ONLY_ENABLE_IF_YOU_KNOW_WHAT_YOURE_DOING", true);
     });
 
-    process.env.DATA_DIR = join(app.getPath("userData"), "..", "Kamidere");
+    process.env.DATA_DIR = join(app.getPath("userData"), "..", "Nv");
 
     // Monkey patch commandLine to:
     // - disable WidgetLayering: Fix DevTools context menus https://github.com/electron/electron/issues/38790
@@ -160,8 +160,8 @@ if (!IS_VANILLA) {
     app.commandLine.appendSwitch("disable-background-timer-throttling");
     app.commandLine.appendSwitch("disable-backgrounding-occluded-windows");
 } else {
-    console.log("[Kamidere] Running in vanilla mode. Not loading Kamidere");
+    console.log("[Nv] Running in vanilla mode. Not loading Nv");
 }
 
-console.log("[Kamidere] Loading original Discord app.asar");
+console.log("[Nv] Loading original Discord app.asar");
 require(require.main!.filename);

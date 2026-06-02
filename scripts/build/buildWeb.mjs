@@ -86,7 +86,7 @@ const buildConfigs = [
     {
         ...commonOptions,
         outfile: "dist/browser/browser.js",
-        footer: { js: "//# sourceURL=file:///KamidereWeb" }
+        footer: { js: "//# sourceURL=file:///nvWeb" }
     },
     {
         ...commonOptions,
@@ -95,7 +95,7 @@ const buildConfigs = [
             ...commonOptions.define,
             IS_EXTENSION: "true"
         },
-        footer: { js: "//# sourceURL=file:///KamidereWeb" }
+        footer: { js: "//# sourceURL=file:///nvWeb" }
     },
     {
         ...commonOptions,
@@ -105,7 +105,7 @@ const buildConfigs = [
             IS_USERSCRIPT: "true",
             window: "unsafeWindow",
         },
-        outfile: "dist/Kamidere.user.js",
+        outfile: "dist/nv.user.js",
         banner: {
             js: readFileSync("browser/userscript.meta.js", "utf-8").replace("%version%", `${VERSION}.${new Date().getTime()}`)
         },
@@ -155,8 +155,8 @@ async function loadDir(dir, basePath = "") {
  */
 async function buildExtension(target, files) {
     const entries = {
-        "dist/Kamidere.js": await readFile("dist/browser/extension.js"),
-        "dist/Kamidere.css": await readFile("dist/browser/extension.css"),
+        "dist/nv.js": await readFile("dist/browser/extension.js"),
+        "dist/nv.css": await readFile("dist/browser/extension.css"),
         ...await loadDir("dist/browser/vendor/monaco", "dist/browser/"),
         ...Object.fromEntries(await Promise.all(files.map(async f => {
             let content = await readFile(join("browser", f));
@@ -184,10 +184,10 @@ async function buildExtension(target, files) {
     console.info("Unpacked Extension written to dist/browser/" + target);
 }
 
-const appendCssRuntime = readFile("dist/Kamidere.user.css", "utf-8").then(content => {
+const appendCssRuntime = readFile("dist/nv.user.css", "utf-8").then(content => {
     const cssRuntime = `unsafeWindow._vcUserScriptRendererCss=\`${content.replaceAll("`", "\\`")}\``;
 
-    return appendFile("dist/Kamidere.user.js", cssRuntime);
+    return appendFile("dist/nv.user.js", cssRuntime);
 });
 
 if (!process.argv.includes("--skip-extension")) {

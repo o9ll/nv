@@ -62,8 +62,8 @@ if (!IS_VANILLA && !IS_EXTENSION) {
             }
         });
 
-        protocol.handle("kamidere", ({ url: unsafeUrl }) => {
-            let url = decodeURI(unsafeUrl).slice("kamidere://".length).replace(/\?v=\d+$/, "");
+        protocol.handle("nv", ({ url: unsafeUrl }) => {
+            let url = decodeURI(unsafeUrl).slice("nv://".length).replace(/\?v=\d+$/, "");
 
             if (url.endsWith("/")) url = url.slice(0, -1);
 
@@ -99,8 +99,8 @@ if (!IS_VANILLA && !IS_EXTENSION) {
         try {
             if (RendererSettings.store.enableReactDevtools)
                 installExt("fmkadmapgofadopljbjfkapdkoienihi")
-                    .then(() => console.info("[Kamidere] Installed React Developer Tools"))
-                    .catch(err => console.error("[Kamidere] Failed to install React Developer Tools", err));
+                    .then(() => console.info("[Nv] Installed React Developer Tools"))
+                    .catch(err => console.error("[Nv] Failed to install React Developer Tools", err));
         } catch { }
 
         initCsp();

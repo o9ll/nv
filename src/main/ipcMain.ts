@@ -149,7 +149,7 @@ ipcMain.handle(IpcEvents.OPEN_MONACO_EDITOR, async () => {
     }
 
     monacoWin = new BrowserWindow({
-        title: "Kamidere QuickCSS Editor",
+        title: "Nv QuickCSS Editor",
         autoHideMenuBar: true,
         darkTheme: true,
         webPreferences: {

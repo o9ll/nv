@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-import type { GuildHydrationSnapshot } from "@shared/kamidere/memberHydrator";
-import { getHydratedGuildMemberIds, hydrateGuildMemberCache } from "@shared/kamidere/memberHydrator";
+import type { GuildHydrationSnapshot } from "@shared/nv/memberHydrator";
+import { getHydratedGuildMemberIds, hydrateGuildMemberCache } from "@shared/nv/memberHydrator";
 import { fetchUserProfile } from "@utils/discord";
 import { sleep } from "@utils/misc";
 import { GuildMemberStore, GuildStore, RelationshipStore, UserProfileStore, UserStore } from "@webpack/common";

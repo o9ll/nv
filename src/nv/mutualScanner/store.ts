@@ -4,7 +4,7 @@ import type { DispatchWithoutAction } from "react";
 
 import type { MutualScannerConfig, MutualScannerData, MutualScannerMatch, MutualScannerRun, MutualScannerRunStats } from "./types";
 
-const STORAGE_PREFIX = "kamidere-mutual-scanner:";
+const STORAGE_PREFIX = "nv-mutual-scanner:";
 const MAX_RUN_HISTORY = 12;
 const cache = new Map<string, MutualScannerData>();
 const signals = new Set<DispatchWithoutAction>();
