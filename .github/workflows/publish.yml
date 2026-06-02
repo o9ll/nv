@@ -1,4 +1,4 @@
-name: Release Browser Extension
+name: Release Extension
 
 on:
   workflow_dispatch:
